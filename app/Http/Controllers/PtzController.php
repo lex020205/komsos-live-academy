@@ -11,6 +11,6 @@ class PtzController extends Controller
      */
     public function index()
     {
-        return view('pages.ptz');
+        return view('pages.academy', ['initialView' => 'ptz']);
     }
 }

@@ -1,0 +1,4407 @@
+﻿<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Komsos Live Academy - Panduan & Pelatihan Kru AV Gereja</title>
+  <link rel="icon" type="image/png" href="{{ asset('images/logo-komsos.png') }}"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#032448",
+            "primary-container": "#1f3a5f",
+            "primary-fixed": "#d5e3ff",
+            secondary: "#7e5700",
+            "secondary-container": "#fdc668",
+            "secondary-fixed": "#ffdead",
+            "secondary-fixed-dim": "#f4bd61",
+            tertiary: "#002b15",
+            "tertiary-container": "#004324",
+            "tertiary-fixed": "#9af6b8",
+            surface: "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "surface-container": "#f0eded",
+            "surface-container-high": "#eae7e7",
+            "surface-container-highest": "#e5e2e1",
+            "on-surface": "#1b1c1c",
+            "on-surface-variant": "#43474e",
+            outline: "#74777f",
+            "outline-variant": "#c4c6cf",
+          },
+          fontFamily: {
+            headline: ["Epilogue", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { -webkit-font-smoothing: antialiased; }
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1;
+    }
+    .nav-pill.active {
+      background-color: #1f3a5f;
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .nav-pill:not(.active) {
+      color: #43474e;
+    }
+    .nav-pill:not(.active):hover {
+      background-color: #f0eded;
+      color: #1b1c1c;
+    }
+    /* Hide scrollbars for slick look */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f6f3f2; }
+    ::-webkit-scrollbar-thumb { background: #c4c6cf; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #74777f; }
+    
+    /* Signal flow animated lines */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .pulse-glow { animation: pulseGlow 2s infinite ease-in-out; }
+    
+    /* View transition */
+    .app-view {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s ease-in-out;
+    }
+    .app-view.active-view {
+      display: block;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col justify-between selection:bg-secondary-container selection:text-secondary">
+
+  <!-- ================= TOP FIXED HEADER ================= -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-outline-variant/30">
+    <!-- Row 1: Brand & Search & User Info -->
+    <div class="h-16 lg:h-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="#beranda" class="flex items-center gap-3 group focus:outline-none">
+        <img alt="Logo Komsos" class="h-8 lg:h-9 w-auto object-contain transition-transform group-hover:scale-105" src="{{ asset('images/logo-komsos.png') }}"/>
+        <div class="flex flex-col">
+          <span class="font-headline font-bold text-lg lg:text-xl text-primary tracking-tight">Komsos Live Academy</span>
+          <span class="text-xs text-on-surface-variant hidden sm:inline font-medium">Panduan & Pelatihan Kru AV Gereja</span>
+        </div>
+      </a>
+
+      <!-- Universal Search Bar -->
+      <div class="flex-1 max-w-md mx-2 hidden md:block">
+        <div class="relative cursor-pointer" onclick="openSearchModal()">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+          <input type="text" readonly placeholder="Cari SOP, kabel XLR, ATEM, kendala audio... (Tekan /)"
+            class="w-full pl-10 pr-12 py-2 bg-surface-container-low hover:bg-surface-container transition-colors rounded-xl text-sm text-on-surface placeholder:text-outline cursor-pointer border border-transparent hover:border-outline-variant/40 focus:outline-none"/>
+          <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-outline px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/50">âŒ˜K</kbd>
+        </div>
+      </div>
+
+      <!-- Status & Profile -->
+      <div class="flex items-center gap-3">
+        <!-- Status Liturgi Badge -->
+        <div class="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-fixed text-tertiary text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+          <span>Status: Siap Siaran</span>
+        </div>
+
+        <!-- Crew ID -->
+        <div class="hidden xl:flex flex-col text-right">
+          <span class="text-xs font-bold text-on-surface">Kru Livestream</span>
+          <span class="text-[11px] text-on-surface-variant">Paroki Maria Bunda</span>
+        </div>
+
+        <!-- Hotline Button (Desktop & Mobile) -->
+        <button onclick="openHotlineModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition-colors text-xs font-bold shadow-sm" title="Hotline & Kontak Bantuan">
+          <span class="material-symbols-outlined text-[16px] text-amber-700">emergency</span>
+          <span class="hidden sm:inline">Hotline</span>
+        </button>
+
+        <!-- Search Icon on Mobile -->
+        <button onclick="openSearchModal()" class="md:hidden p-2 rounded-lg bg-surface-container text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">search</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Row 2: Main Desktop Nav Links -->
+    <nav class="h-11 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-surface-container-lowest flex items-center justify-between overflow-x-auto gap-1 border-t border-outline-variant/20 text-xs sm:text-sm font-medium">
+      <div class="flex items-center gap-1 sm:gap-2">
+        <a href="#beranda" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="beranda">
+          <span class="material-symbols-outlined text-[18px]">home</span>
+          <span>Beranda</span>
+        </a>
+        <a href="#alat" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="alat">
+          <span class="material-symbols-outlined text-[18px]">construction</span>
+          <span>Alat & Kabel</span>
+        </a>
+        <a href="#langkah" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="langkah">
+          <span class="material-symbols-outlined text-[18px]">format_list_numbered</span>
+          <span>Langkah (SOP)</span>
+        </a>
+        <a href="#alur-sinyal" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="alur-sinyal">
+          <span class="material-symbols-outlined text-[18px]">schema</span>
+          <span>Alur Sinyal</span>
+        </a>
+        <a href="#ptz" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="ptz">
+          <span class="material-symbols-outlined text-[18px]">videocam</span>
+          <span>Kamera PTZ</span>
+        </a>
+        <a href="#hari-h" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="hari-h">
+          <span class="material-symbols-outlined text-[18px] text-amber-600">bolt</span>
+          <span>Mode Hari-H</span>
+        </a>
+        <a href="#latihan" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="latihan">
+          <span class="material-symbols-outlined text-[18px]">quiz</span>
+          <span>Latihan & Kuis</span>
+        </a>
+        <a href="#bantuan" class="nav-pill px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5" data-nav="bantuan">
+          <span class="material-symbols-outlined text-[18px]">help</span>
+          <span>Bantuan</span>
+        </a>
+      </div>
+
+      <div class="hidden lg:flex items-center gap-2 text-xs text-on-surface-variant font-medium shrink-0">
+        <span class="material-symbols-outlined text-secondary text-[16px]">church</span>
+        <span>Liturgi Mingguan Hari Minggu</span>
+      </div>
+    </nav>
+
+    <!-- Row 3: Active Module Status Strip -->
+    <div class="h-7 w-full bg-surface-container-low border-t border-outline-variant/20 px-4 sm:px-6 lg:px-8 text-[11px] flex items-center justify-between max-w-7xl mx-auto">
+      <div class="flex items-center gap-2 flex-1 max-w-xl">
+        <span class="font-bold text-primary whitespace-nowrap">Modul Aktif:</span>
+        <span class="truncate text-on-surface">Modul 2: Setup Kabel Audio & Video Misa Mingguan</span>
+        <div class="hidden sm:flex items-center gap-1.5 w-32 shrink-0">
+          <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+            <div id="top-progress-bar" class="h-full bg-secondary-container w-[60%] rounded-full transition-all duration-500"></div>
+          </div>
+          <span id="top-progress-text" class="text-secondary font-bold text-[10px]">60%</span>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center gap-1 text-on-surface-variant">
+        <span class="material-symbols-outlined text-[14px]">school</span>
+        <span>Jalur Pembelajaran Remaja Paroki</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= VIEW 1: BERANDA ================= -->
+  <section id="view-beranda" class="app-view active-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Hero Dashboard Banner -->
+    <div class="relative w-full rounded-2xl overflow-hidden bg-primary text-white shadow-xl mt-4 p-6 sm:p-8 lg:p-10 border border-primary-container">
+      <!-- Glow decors -->
+      <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none"></div>
+      <div class="absolute left-1/3 -bottom-20 w-72 h-72 rounded-full bg-blue-400/10 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div class="flex-1 max-w-2xl">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/20 text-secondary-fixed text-xs font-semibold mb-3 border border-secondary-container/30">
+            <span class="material-symbols-outlined text-[16px] fill text-secondary-fixed">church</span>
+            <span>Panduan AV Komunikasi Sosial</span>
+          </div>
+
+          <h1 class="font-headline font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight mb-3">
+            Siap Siaran? Yuk Belajar Bareng Komsos
+          </h1>
+
+          <p class="text-sm sm:text-base text-blue-100/90 leading-relaxed mb-6">
+            Panduan alat dan langkah siaran langsung, dari nyalakan alat sampai live di YouTube. Dibuat ramah pemula, tenang, dan tertib liturgis untuk relawan muda sakristi.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="#langkah" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-secondary-container hover:bg-secondary-fixed-dim text-amber-950 font-semibold text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
+              <span class="material-symbols-outlined text-[20px]">play_arrow</span>
+              <span>Mulai Belajar</span>
+            </a>
+            <button onclick="switchView('hari-h')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition-all backdrop-blur-sm">
+              <span class="material-symbols-outlined text-[20px] text-amber-400">bolt</span>
+              <span>Mode Hari-H (SOP Cepat)</span>
+            </button>
+            <button onclick="switchView('latihan')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-primary-container hover:bg-blue-900 text-blue-100 font-medium text-sm transition-colors border border-blue-400/20">
+              <span class="material-symbols-outlined text-[18px]">sports_esports</span>
+              <span>Simulasi Colok Kabel</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- System Status Box -->
+        <div class="w-full lg:w-72 bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/15 text-white shadow-inner flex flex-col gap-3">
+          <div class="flex items-center justify-between pb-2 border-b border-white/10">
+            <span class="text-xs uppercase tracking-wider text-blue-200 font-bold">Status Sistem</span>
+            <span class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-bold border border-emerald-400/30">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Siap Siaran
+            </span>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="flex items-center justify-between text-blue-100">
+              <span class="text-blue-200">Target Liturgi:</span>
+              <span class="font-semibold text-white">Misa Minggu Biasa</span>
+            </div>
+            <div class="flex items-center justify-between text-blue-100">
+              <span class="text-blue-200">Waktu Standby:</span>
+              <span class="font-semibold text-white">H-60 Menit</span>
+            </div>
+            <div class="flex items-center justify-between text-blue-100">
+              <span class="text-blue-200">Koneksi OBS:</span>
+              <span class="font-semibold text-emerald-300 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">wifi</span> 15 Mbps Terhubung
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: ROLE SELECTION -->
+    <section class="mt-12">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+        <div>
+          <span class="text-xs text-secondary font-bold tracking-wider uppercase">Jalur Pembelajaran Liturgi</span>
+          <h2 class="font-headline font-bold text-xl sm:text-2xl text-primary tracking-tight">Pilih Peran Pelayananmu</h2>
+          <p class="text-xs sm:text-sm text-on-surface-variant">Setiap peran memiliki tanggung jawab khusus dalam mengantar umat beribadat di rumah.</p>
+        </div>
+        <div class="flex items-center gap-1.5 text-on-surface-variant text-xs bg-surface-container px-3 py-1.5 rounded-full self-start sm:self-auto">
+          <span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+          <span>4 Peran Kru Siaran</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Role 1: Kamera -->
+        <div class="group flex flex-col justify-between p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-md transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">videocam</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-[11px] font-medium">Siap Dipelajari</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary mb-1 group-hover:text-secondary transition-colors">
+              Kru Kamera & Framing
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+              Preset altar, mimbar firman, koor, serta aturan Rule of Thirds tanpa goyang saat imam konsekrasi.
+            </p>
+          </div>
+          <button onclick="switchView('ptz')" class="w-full py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors">
+            <span>Buka Modul Kamera</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <!-- Role 2: Audio Mixer -->
+        <div class="group flex flex-col justify-between p-5 rounded-2xl bg-surface-container-lowest border-2 border-secondary-container shadow-sm hover:shadow-md transition-all relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-amber-500"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-secondary flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">equalizer</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-bold">Sedang Aktif</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary mb-1 group-hover:text-secondary transition-colors">
+              Kru Audio & Mixer
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+              Gain staging, eliminasi grounding hum, headroom -12dB, serta colokan Jack 3.5mm ke ATEM Mini.
+            </p>
+          </div>
+          <button onclick="switchView('alat')" class="w-full py-2.5 rounded-xl bg-primary text-white hover:bg-primary-container font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+            <span>Katalog & Colokan Audio</span>
+            <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+          </button>
+        </div>
+
+        <!-- Role 3: Operator OBS & YouTube -->
+        <div class="group flex flex-col justify-between p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-md transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-primary flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">desktop_windows</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">SOP Tersedia</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary mb-1 group-hover:text-secondary transition-colors">
+              Operator OBS & YouTube
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+              Jadwal siaran YouTube Studio, salin stream key, setup scene lirik misa, dan delay sync 1080p 60fps.
+            </p>
+          </div>
+          <button onclick="openObsTab()" class="w-full py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors">
+            <span>Panduan YouTube & OBS</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <!-- Role 4: Troubleshooting Cepat -->
+        <div class="group flex flex-col justify-between p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow-md transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-red-50 text-red-700 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">medical_services</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-red-100 text-red-800 text-[11px] font-bold">Respon 30 Detik</span>
+            </div>
+            <h3 class="font-headline font-bold text-base text-primary mb-1 group-hover:text-secondary transition-colors">
+              Troubleshooting Darurat
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+              Mitigasi instan jika HDMI copot, suara dengung saat konsekrasi, atau bitrate dropped frame.
+            </p>
+          </div>
+          <button onclick="switchView('bantuan')" class="w-full py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors">
+            <span>Pusat Solusi Darurat</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: 6 JALUR BELAJAR -->
+    <section class="mt-14" id="jalur-belajar">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+        <div>
+          <span class="text-xs text-secondary font-bold uppercase tracking-wider">Kurikulum Kru Remaja</span>
+          <h2 class="font-headline font-bold text-xl sm:text-2xl text-primary tracking-tight">Jalur Belajar Siaran Misa</h2>
+          <p class="text-xs sm:text-sm text-on-surface-variant">Ikuti 6 modul terstruktur berikut agar siaran Misa berjalan tenang, rapi, dan penuh hikmat.</p>
+        </div>
+        <div class="flex items-center gap-1.5 text-on-surface-variant text-xs bg-surface-container px-3 py-1.5 rounded-full border border-outline-variant/30 self-start sm:self-auto">
+          <span class="material-symbols-outlined text-[16px] text-tertiary-container">auto_stories</span>
+          <span>6 Modul Pembelajaran Praktis</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <!-- Modul 01 -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0 font-headline font-bold text-emerald-900 text-lg">01</div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[22px]">videocam</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Pengenalan Alat Tempur Komsos</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">10 menit</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">Mengenal kamera PTZ, audio mixer, video switcher ATEM, dan PC broadcast di ruang multimedia gereja.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <div class="flex items-center gap-2">
+              <svg class="w-8 h-8 -rotate-90" viewBox="0 0 36 36">
+                <path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4"></path>
+                <path class="text-emerald-600 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="100, 100" stroke-linecap="round" stroke-width="4"></path>
+              </svg>
+              <span class="text-xs font-bold text-emerald-700">100% Selesai</span>
+            </div>
+            <button onclick="switchView('alat')" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+              <span>Tinjau</span>
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modul 02 (Active) -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border-2 border-secondary-container shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative overflow-hidden">
+          <div class="absolute top-0 left-0 bottom-0 w-1.5 bg-amber-500"></div>
+          <div class="flex items-start sm:items-center gap-4 pl-1">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center shrink-0 font-headline font-bold text-amber-900 text-lg">02</div>
+            <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-700 shrink-0">
+              <span class="material-symbols-outlined text-[22px]">cable</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Persiapan & Sambungan Kabel SOP</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-900 border border-amber-200">15 menit</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-200 text-amber-950">Sedang Berjalan</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">Menghubungkan kabel XLR mikrofon altar, kabel HDMI kamera, serta kabel LAN jaringan siar paroki.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <div class="flex items-center gap-2">
+              <svg class="w-8 h-8 -rotate-90" viewBox="0 0 36 36">
+                <path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="4"></path>
+                <path class="text-amber-500 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="60, 100" stroke-linecap="round" stroke-width="4"></path>
+              </svg>
+              <span class="text-xs font-bold text-amber-800">60%</span>
+            </div>
+            <button onclick="switchView('langkah')" class="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary-container font-semibold text-xs flex items-center gap-1 transition-colors shadow-sm">
+              <span>Lanjut</span>
+              <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modul 03 -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0 font-headline font-bold text-outline text-lg">03</div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+              <span class="material-symbols-outlined text-[22px]">sensors</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Jadwal & Link YouTube Studio</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">8 menit</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">Membuat jadwal live stream, mengisi judul misa, menyalin Stream Key, dan set privasi tayangan.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <span class="text-xs text-on-surface-variant">0% Belum Mulai</span>
+            <button onclick="openYouTubeTab()" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+              <span>Mulai</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modul 04 -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0 font-headline font-bold text-outline text-lg">04</div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+              <span class="material-symbols-outlined text-[22px]">tune</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Pengaturan OBS Studio</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">15 menit</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">Menyiapkan scene liturgi pembuka, overlay teks bacaan, teks lagu misa, dan sinkronisasi audio delay.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <span class="text-xs text-on-surface-variant">0% Belum Mulai</span>
+            <button onclick="openObsTab()" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+              <span>Mulai</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modul 05 -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0 font-headline font-bold text-outline text-lg">05</div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+              <span class="material-symbols-outlined text-[22px]">pan_tool</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Kontrol Kamera PTZ & Presisi Liturgi</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">12 menit</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">Menyimpan preset shot altar, mimbar firman, tabernakel, dan koor dengan transisi halus tanpa goyang.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <span class="text-xs text-on-surface-variant">0% Belum Mulai</span>
+            <button onclick="switchView('ptz')" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+              <span>Mulai</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modul 06 -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0 font-headline font-bold text-outline text-lg">06</div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+              <span class="material-symbols-outlined text-[22px]">shield</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="font-headline font-bold text-sm sm:text-base text-primary">Siaran & Troubleshooting 30 Detik</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface-variant">10 menit</span>
+              </div>
+              <p class="text-xs text-on-surface-variant mt-0.5">SOP saat tombol Go Live ditekan, dan mitigasi 3 menit jika kabel HDMI lepas atau sound berdengung.</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-outline-variant/20">
+            <span class="text-xs text-on-surface-variant">0% Belum Mulai</span>
+            <button onclick="switchView('bantuan')" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+              <span>Mulai</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: ALUR SIARAN DALAM 1 GAMBAR -->
+    <section class="mt-14">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+        <div>
+          <span class="text-xs text-secondary font-bold uppercase tracking-wider">Diagram Alir AV Liturgi</span>
+          <h2 class="font-headline font-bold text-xl sm:text-2xl text-primary tracking-tight">Alur Siaran Dalam 1 Gambar</h2>
+          <p class="text-xs sm:text-sm text-on-surface-variant">Pahami ke mana sinyal suara dan video mengalir dari altar sampai ke layar umat di rumah.</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap text-[11px] font-semibold text-on-surface-variant">
+          <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#7C3AED]"></span>XLR Ungu</span>
+          <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#F97316]"></span>Jack Oranye</span>
+          <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>HDMI Biru</span>
+          <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#16A34A]"></span>USB/LAN Hijau</span>
+        </div>
+      </div>
+
+      <div class="w-full p-4 sm:p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm overflow-x-auto">
+        <div class="min-w-[820px] flex items-center justify-between gap-2 py-2">
+          <!-- Step 1 -->
+          <div class="flex-1 flex flex-col items-center p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 text-center">
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary mb-1">
+              <span class="material-symbols-outlined text-[22px]">mic</span>
+            </div>
+            <span class="font-bold text-xs sm:text-sm text-primary">Mikrofon Altar</span>
+            <span class="text-[11px] text-on-surface-variant">Imam, Lektor, Koor</span>
+            <span class="mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-[#7C3AED] bg-[#7C3AED]/10">Output XLR</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center px-1 text-center shrink-0">
+            <span class="material-symbols-outlined text-[#7C3AED] text-[18px]">arrow_forward</span>
+            <span class="text-[10px] font-bold text-[#7C3AED]">XLR</span>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flex-1 flex flex-col items-center p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 text-center">
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary mb-1">
+              <span class="material-symbols-outlined text-[22px]">equalizer</span>
+            </div>
+            <span class="font-bold text-xs sm:text-sm text-primary">Mixer Audio</span>
+            <span class="text-[11px] text-on-surface-variant">Atur Volume -12dB</span>
+            <span class="mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-[#C2410C] bg-[#F97316]/10">Out Jack / Line</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center px-1 text-center shrink-0">
+            <span class="material-symbols-outlined text-[#F97316] text-[18px]">arrow_forward</span>
+            <span class="text-[10px] font-bold text-[#C2410C]">Audio In</span>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flex-1 flex flex-col items-center p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 text-center">
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary mb-1">
+              <span class="material-symbols-outlined text-[22px]">switch_camera</span>
+            </div>
+            <span class="font-bold text-xs sm:text-sm text-primary">ATEM & PTZ</span>
+            <span class="text-[11px] text-on-surface-variant">Switch Gambar Misa</span>
+            <span class="mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-[#1D4ED8] bg-[#2563EB]/10">Kabel HDMI</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center px-1 text-center shrink-0">
+            <span class="material-symbols-outlined text-[#2563EB] text-[18px]">arrow_forward</span>
+            <span class="text-[10px] font-bold text-[#1D4ED8]">HDMI / USB</span>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="flex-1 flex flex-col items-center p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 text-center">
+            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary mb-1">
+              <span class="material-symbols-outlined text-[22px]">laptop_mac</span>
+            </div>
+            <span class="font-bold text-xs sm:text-sm text-primary">MacBook (OBS)</span>
+            <span class="text-[11px] text-on-surface-variant">Encoding 1080p 60fps</span>
+            <span class="mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-[#15803D] bg-[#16A34A]/10">LAN Paroki</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center px-1 text-center shrink-0">
+            <span class="material-symbols-outlined text-[#16A34A] text-[18px]">arrow_forward</span>
+            <span class="text-[10px] font-bold text-[#15803D]">RTMP / NDI</span>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="flex-1 flex flex-col items-center p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-center">
+            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-800 mb-1">
+              <span class="material-symbols-outlined text-[22px]">live_tv</span>
+            </div>
+            <span class="font-bold text-xs sm:text-sm text-emerald-950">YouTube Live</span>
+            <span class="text-[11px] text-emerald-800">TV Umat & Sayap</span>
+            <span class="mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-emerald-800 bg-emerald-200">Broadcast Siap</span>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p class="text-xs text-on-surface-variant text-center sm:text-left">
+            Ingin mengecek rute detail, frekuensi MHz kabel, atau pengaturan gain switcher?
+          </p>
+          <button onclick="switchView('alur-sinyal')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary-container text-xs font-semibold transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">schema</span>
+            <span>Buka Peta Sinyal Interaktif Lengkap</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= VIEW 2: ALAT & KABEL ================= -->
+  <section id="view-alat" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
+      <a href="#beranda" class="hover:text-primary">Beranda</a>
+      <span>&rsaquo;</span>
+      <span class="text-secondary font-semibold">Modul 01 & 02: Referensi Teknis Lapangan</span>
+    </div>
+
+    <!-- Title & Description -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-headline font-bold text-2xl sm:text-3xl text-primary tracking-tight">Katalog Alat & Skema Pengkabelan AV</h1>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-1 max-w-2xl">
+          Kenali fungsi setiap perangkat sakristi dan cara menyambungkannya dengan benar menggunakan standar kode warna kabel Komsos.
+        </p>
+      </div>
+      <button onclick="openAtemPortInspector()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white hover:bg-primary-container text-xs font-semibold shadow-sm transition-all self-start md:self-auto">
+        <span class="material-symbols-outlined text-[18px]">developer_board</span>
+        <span>Buka Port Inspector ATEM Mini</span>
+      </button>
+    </div>
+
+    <!-- Search & Filter Category Pills -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-8">
+      <div class="flex items-center gap-2 overflow-x-auto pb-1" id="alat-filter-group">
+        <button onclick="filterAlat('all', this)" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-primary text-white transition-colors">Semua Alat (11)</button>
+        <button onclick="filterAlat('audio', this)" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors">Audio Mixer</button>
+        <button onclick="filterAlat('video', this)" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors">Kamera & Switcher</button>
+        <button onclick="filterAlat('kabel', this)" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors">Kabel & Konektor</button>
+        <button onclick="filterAlat('komputer', this)" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors">Komputer Streaming</button>
+      </div>
+      <div class="relative w-full sm:w-64">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+        <input id="alat-search-input" oninput="searchAlat(this.value)" type="text" placeholder="Cari nama alat (ATEM, XLR...)"
+          class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-outline-variant/30 rounded-xl text-xs text-on-surface placeholder:text-outline focus:outline-none focus:border-primary"/>
+      </div>
+    </div>
+
+    <!-- Standar Kode Warna Kabel Liturgi -->
+    <div class="mb-10 p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+        <h2 class="font-headline font-bold text-sm sm:text-base text-primary flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+          <span>Standar Kode Warna Kabel Liturgi</span>
+        </h2>
+        <span class="text-[11px] text-on-surface-variant italic">Patuhi warna pita isolasi penanda kabel di meja sakristi!</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- XLR -->
+        <div class="p-3.5 rounded-xl bg-purple-50/60 border border-purple-200">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="w-3 h-3 rounded-full bg-[#7C3AED]"></span>
+            <span class="font-bold text-xs text-purple-950">XLR Audio Balanced</span>
+          </div>
+          <p class="text-[11px] text-purple-900 leading-relaxed">Kabel Mic Imam, Ambo, & Output Mixer Utama ke Sound System Gedung.</p>
+        </div>
+
+        <!-- Jack 3.5mm -->
+        <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="w-3 h-3 rounded-full bg-[#F97316]"></span>
+            <span class="font-bold text-xs text-amber-950">Jack 3.5mm / TRS</span>
+          </div>
+          <p class="text-[11px] text-amber-900 leading-relaxed">Audio laptop lagu liturgi, iPad koor, & input Mic 1 ATEM Mini Video Switcher.</p>
+        </div>
+
+        <!-- HDMI -->
+        <div class="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="w-3 h-3 rounded-full bg-[#2563EB]"></span>
+            <span class="font-bold text-xs text-blue-950">HDMI / SDI Video</span>
+          </div>
+          <p class="text-[11px] text-blue-900 leading-relaxed">Kamera Altar, Kamera Mimbar, & Capture Card Switcher ke OBS Studio.</p>
+        </div>
+
+        <!-- LAN RJ45 -->
+        <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="w-3 h-3 rounded-full bg-[#16A34A]"></span>
+            <span class="font-bold text-xs text-emerald-950">LAN / Ethernet RJ45</span>
+          </div>
+          <p class="text-[11px] text-emerald-900 leading-relaxed">Kabel Internet Switcher, Router Streaming, NDI Lirik Lagu, & Remote PTZ.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipment Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="alat-grid">
+      <!-- Item 1: Audio Mixer 16-Ch -->
+      <div class="alat-card p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col justify-between" data-category="audio">
+        <div>
+          <div class="flex items-center justify-between text-xs text-on-surface-variant mb-3">
+            <span class="font-bold uppercase tracking-wider text-[10px] bg-surface-container px-2 py-0.5 rounded">Unit Audio 01</span>
+            <span class="material-symbols-outlined text-[18px]">equalizer</span>
+          </div>
+          <div class="h-48 w-full rounded-xl overflow-hidden bg-surface-container mb-4 relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGUf68-gTpnacDzDFR12MkUdoPwT8pRe0scH4Ts4DiU2T4fs2-f1bvWM9HQZI8lg3ccyf436WmEdreLodS5eWTH9jWiZ0LmjLS3-akOP3Vqzq29_pcIfhBZImh2cH-ret8RIVGxOZSa6F1A5BwWOU-iYsRVWs0bWIWrwNlIFSuKITjcdr6biK13hPF_vLA4Xc8aZYM5c216vVn4xoVQ-VAxmBzp1J9KZsz4Cr_WJZNQdt_cYf4Tc3T" alt="Audio Mixer" class="w-full h-full object-cover"/>
+            <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/80 text-white backdrop-blur-sm">Mixer Liturgi</span>
+          </div>
+          <h3 class="font-headline font-bold text-base text-primary mb-1">Audio Mixer Analog/Digital 16-Channel</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+            Pusat pengaturan volume mikrofon altar, lektor bacaan, paduan suara, serta alunan instrumen musik misa. Menentukan kejernihan doa umat di rumah.
+          </p>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs space-y-1 mb-4">
+            <div class="font-bold text-[11px] text-primary">PORT MASUKAN & LUARAN UTAMA:</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-900 font-semibold">â€¢ Input 1-8: Mic XLR</span>
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">â€¢ Aux Out: Ke Capture Card OBS</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-semibold">â€¢ Master Out: Sound System Gereja</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-700 text-[18px] shrink-0">check_circle</span>
+            <p><strong>Cek Dulu Sebelum Misa:</strong> Pastikan knob GAIN tidak mencapai lampu merah (clipping). Sinyal ideal berada di zona hijau dan sesekali kuning (-12dB s/d -6dB).</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-[11px] text-on-surface-variant font-medium">SOP Jalur Audio Siap</span>
+          <button onclick="switchView('langkah')" class="text-xs font-bold text-primary hover:text-secondary flex items-center gap-1">
+            <span>Skema Input</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Item 2: Video Switcher ATEM Mini -->
+      <div class="alat-card p-5 rounded-2xl bg-surface-container-lowest border-2 border-primary/20 shadow-sm hover:shadow transition-shadow flex flex-col justify-between" data-category="video">
+        <div>
+          <div class="flex items-center justify-between text-xs text-on-surface-variant mb-3">
+            <span class="font-bold uppercase tracking-wider text-[10px] bg-blue-100 text-blue-900 px-2 py-0.5 rounded">Unit Video 02 â€¢ Utama</span>
+            <span class="material-symbols-outlined text-[18px]">videocam</span>
+          </div>
+          <div class="h-48 w-full rounded-xl overflow-hidden bg-surface-container mb-4 relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB45B-1_6OJVjcihT7p_2Nmic4eFsFWk5H0T9Iktl-dwZCzZFQ5Z22brtLp6rnMZm-6_-GdOi6Ccrrp1p_I-rO7eRdanW-fZ3StlIFqiW1Ge9nKv-5epiNJscjIKMZUEEqXrKZdrLYP_q5WU0vFPzc_fzhCVyluV0Qle_C3sj0jk2ajuqWxuk-NzHUryWRU-ewg01nfL9Ll4gVYgpmRDOt4Sf09SfmAb4jmoXG2p-y34m9jJGSCqmj" alt="ATEM Mini Switcher" class="w-full h-full object-cover"/>
+            <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold bg-secondary/90 text-white backdrop-blur-sm">Video Switcher</span>
+          </div>
+          <h3 class="font-headline font-bold text-base text-primary mb-1">Video Switcher (Blackmagic ATEM Mini)</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+            Pengatur perpindahan sudut kamera (Cam 1 Altar, Cam 2 Mimbar, Cam 3 Umat/Koor, Cam 4 Slide Teks Lagu). Mengganti shot dengan transisi halus tanpa flicker.
+          </p>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs space-y-1 mb-4">
+            <div class="font-bold text-[11px] text-primary">PORT MASUKAN & LUARAN UTAMA:</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-semibold">â€¢ 4x HDMI Input Video</span>
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">â€¢ 1x USB-C Webcam Out (ke Laptop)</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">â€¢ 1x LAN Control (Ethernet)</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 flex items-start gap-2">
+            <span class="material-symbols-outlined text-blue-700 text-[18px] shrink-0">tips_and_updates</span>
+            <p><strong>Tips Praktis Kru Komsos:</strong> Beri label nomor 1-4 pada setiap kabel HDMI di kedua ujungnya agar bila gambar tiba-tiba gelap, langsung tahu colokan mana yang perlu dicek.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-[11px] text-on-surface-variant font-medium">Multiview Sinkron</span>
+          <button onclick="openAtemPortInspector()" class="px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-primary-container text-xs font-semibold flex items-center gap-1 transition-colors">
+            <span>Peta Port Switcher</span>
+            <span class="material-symbols-outlined text-[14px]">developer_board</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Item 3: Kamera Utama PTZ -->
+      <div class="alat-card p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col justify-between" data-category="video">
+        <div>
+          <div class="flex items-center justify-between text-xs text-on-surface-variant mb-3">
+            <span class="font-bold uppercase tracking-wider text-[10px] bg-surface-container px-2 py-0.5 rounded">Unit Kamera 03</span>
+            <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+          </div>
+          <div class="h-48 w-full rounded-xl overflow-hidden bg-surface-container mb-4 relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqlaYy0IOiEPAcqP3v6NvX5G1BZX1dcNfFAqj9i0MNp4yz9Cq_tB-kTZWTm32Z4tvzYO0oOQUD6wzUmCtqlXVSvBTAudqosLD1qzd_TfgkxD-h-QcImUKImv2uokVLsAy29BKI836nx7qnAP4mxKThWJL9DI3sEWvmEGz51QuFPXXKIaOL9VyURbQFzmfQFlSApIfKQB3vTR0KC7E5Bkit_r8PzgBXWEvEQLcvifMcQkSEbLvO0EZk" alt="Kamera PTZ" class="w-full h-full object-cover"/>
+            <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/80 text-white backdrop-blur-sm">Cam 1: Altar Wide</span>
+          </div>
+          <h3 class="font-headline font-bold text-base text-primary mb-1">Kamera Utama PTZ / Mirrorless Full HD</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+            Kamera penangkap visual utama dengan tripod kokoh di balkon atau koridor tengah gereja. Bertugas mengambil pemandangan luas Altar Kudus dan perarakan liturgi masuk.
+          </p>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs space-y-1 mb-4">
+            <div class="font-bold text-[11px] text-primary">PORT MASUKAN & LUARAN:</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-semibold">â€¢ HDMI Micro ke Standard (Video Out)</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-semibold">â€¢ Dummy Battery (DC Constant Power)</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-semibold">â€¢ Clean HDMI Display (No OSD Icon)</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+            <span class="material-symbols-outlined text-amber-700 text-[18px] shrink-0">warning</span>
+            <p><strong>Awas! Bahaya Terjungkal:</strong> Selalu kunci tuas fluid head tripod sebelum meninggalkan posisi kamera. Jangan biarkan beban lensa zoom membuat kamera menunduk jatuh secara mendadak.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-[11px] text-on-surface-variant font-medium">Tripod Terkunci Stabil</span>
+          <button onclick="switchView('ptz')" class="text-xs font-bold text-primary hover:text-secondary flex items-center gap-1">
+            <span>Uji Kontrol PTZ</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Item 4: Video Capture Card -->
+      <div class="alat-card p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm hover:shadow transition-shadow flex flex-col justify-between" data-category="komputer">
+        <div>
+          <div class="flex items-center justify-between text-xs text-on-surface-variant mb-3">
+            <span class="font-bold uppercase tracking-wider text-[10px] bg-surface-container px-2 py-0.5 rounded">Unit Interface 04</span>
+            <span class="material-symbols-outlined text-[18px]">input</span>
+          </div>
+          <div class="h-48 w-full rounded-xl overflow-hidden bg-surface-container mb-4 relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqjBKOVNSw6T9LbP5ygIPxUdZP7jGNi37ySVwUbjEF1zZu3E1ptMZIgzKOd89o9r9FFGUrYD8ZFPFsJVXLuTbozAzqgyo5XbtWYCVG8BGgoLGfTAqxxR8H0rADP75qa3T62T8-5JrepSTAazikhOdSs_0uzjg-X8jDVbXtPd8v0HY6XL8CCQdoLPApC4lqbOTMMTSluoqyPeAhx5s9f1HQGwZF35DtBCKJF7j3k82nYgZPH7_Mx_AK" alt="Video Capture Card" class="w-full h-full object-cover"/>
+            <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold bg-primary/80 text-white backdrop-blur-sm">Konverter Digital</span>
+          </div>
+          <h3 class="font-headline font-bold text-base text-primary mb-1">Video Capture Card & Audio Interface</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed mb-4">
+            Jembatan krusial yang menerjemahkan sinyal video HDMI murni & audio analog dari mixer menjadi paket data digital resolusi tinggi yang siap disiarkan oleh OBS Studio.
+          </p>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs space-y-1 mb-4">
+            <div class="font-bold text-[11px] text-primary">PORT MASUKAN & LUARAN:</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-semibold">â€¢ HDMI Video Passthrough In</span>
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">â€¢ TRS Line-In 2-Channel</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">â€¢ USB 3.0 Type-A/C ke Laptop OBS</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-start gap-2">
+            <span class="material-symbols-outlined text-emerald-700 text-[18px] shrink-0">verified</span>
+            <p><strong>Cek Dulu Port Biru:</strong> Colokkan Capture Card hanya ke port USB 3.0 (biasanya bertanda biru atau lambang SS). Bila dicolok ke USB 2.0 biasa, siaran bisa patah-patah atau blank.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-[11px] text-on-surface-variant font-medium">Kompatibel OBS Studio</span>
+          <button onclick="openObsTab()" class="text-xs font-bold text-primary hover:text-secondary flex items-center gap-1">
+            <span>Sinkronisasi OBS</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 ATURAN EMAS KRU KABEL -->
+    <div class="mt-12 p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2 py-0.5 rounded">SOP Wajib Tim Teknis</span>
+          <h2 class="font-headline font-bold text-lg text-primary mt-1">3 Aturan Emas Kru Kabel Komsos</h2>
+          <p class="text-xs text-on-surface-variant">Sebelum umat memasuki gereja, pastikan 3 langkah keselamatan fisik kabel ini sudah diverifikasi.</p>
+        </div>
+        <div class="text-right">
+          <span id="aturan-counter" class="text-xs font-bold px-3 py-1 rounded-full bg-surface-container text-on-surface">0/3 Terverifikasi</span>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/20">
+          <input type="checkbox" onchange="updateAturanCount()" class="aturan-check mt-1 w-4 h-4 rounded text-primary focus:ring-primary"/>
+          <div>
+            <p class="text-xs font-bold text-primary">Aturan 01: Gulung Kabel Menggunakan Metode 'Over-Under'</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">Hindari melilitkan kabel pada siku tangan. Cara itu merusak kawat tembaga internal. Gunakan teknik putaran alami Over-Under agar kabel awet bertahun-tahun.</p>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/20">
+          <input type="checkbox" onchange="updateAturanCount()" class="aturan-check mt-1 w-4 h-4 rounded text-primary focus:ring-primary"/>
+          <div>
+            <p class="text-xs font-bold text-primary">Aturan 02: Pasang Lakban Gaffer Hitam di Jalur Lintasan Orang</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">Semua kabel yang melintasi karpet aisle atau pintu masuk harus ditempel rapat menggunakan lakban gaffer hitam, jangan lakban plastik bening! Melindungi umat dan imam agar tidak tersandung.</p>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/20">
+          <input type="checkbox" onchange="updateAturanCount()" class="aturan-check mt-1 w-4 h-4 rounded text-primary focus:ring-primary"/>
+          <div>
+            <p class="text-xs font-bold text-primary">Aturan 03: Jangan Pernah Menarik Kabel dari Kawat Tubuhnya</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">Saat melepas sambungan XLR atau HDMI, pegang kepala konektor logamnya dan tekan tombol pengunci (latch). Menarik tubuh karet kabel akan memutus solderan dan memicu suara dengung di tengah konsekrasi.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 3: LANGKAH SOP RIGGING & SOFTWARE ================= -->
+  <section id="view-langkah" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb & Mode Selector -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+        <a href="#beranda" class="hover:text-primary">Beranda</a>
+        <span>&rsaquo;</span>
+        <span>Perayaan Ekaristi Mingguan</span>
+        <span>&rsaquo;</span>
+        <span class="text-secondary font-semibold">Alur Rigging & SOP Siaran</span>
+      </div>
+
+      <!-- Tab Switcher between 16-Step Rigging vs YouTube/OBS Setup -->
+      <div class="inline-flex p-1 rounded-xl bg-surface-container border border-outline-variant/30 self-start sm:self-auto text-xs font-semibold">
+        <button id="tab-btn-rigging" onclick="switchSopSubTab('rigging')" class="px-3.5 py-1.5 rounded-lg bg-primary text-white shadow-sm transition-all">
+          16 Langkah Rigging Altar
+        </button>
+        <button id="tab-btn-software" onclick="switchSopSubTab('software')" class="px-3.5 py-1.5 rounded-lg text-on-surface hover:text-primary transition-all">
+          Panduan YouTube & OBS Studio
+        </button>
+      </div>
+    </div>
+
+    <!-- SUB-VIEW 1: 16 LANGKAH RIGGING ALTAR -->
+    <div id="subview-rigging">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Left: Phase List & Step Selector -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="p-4 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+            <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20 mb-3">
+              <span class="text-xs font-bold text-primary uppercase">Daftar Langkah SOP</span>
+              <span id="sop-progress-badge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">Langkah 5 dari 16</span>
+            </div>
+
+            <!-- FASE A -->
+            <div class="mb-3">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-1 rounded flex items-center justify-between mb-1">
+                <span>FASE A: PERSIAPAN AWAL MEJA AV</span>
+                <span class="text-[10px] text-emerald-700 font-semibold">3 Langkah</span>
+              </div>
+              <div class="space-y-1">
+                <button onclick="selectStep(1)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="1">
+                  <span class="truncate">01. Colokkan Kabel Power & Stabilizer</span>
+                  <span class="step-icon material-symbols-outlined text-emerald-600 text-[16px]">check_circle</span>
+                </button>
+                <button onclick="selectStep(2)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="2">
+                  <span class="truncate">02. Nyalakan Mixer Audio Utama Gedung</span>
+                  <span class="step-icon material-symbols-outlined text-emerald-600 text-[16px]">check_circle</span>
+                </button>
+                <button onclick="selectStep(3)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="3">
+                  <span class="truncate">03. Colokkan Kabel LAN RJ45 ke Laptop OBS</span>
+                  <span class="step-icon material-symbols-outlined text-emerald-600 text-[16px]">check_circle</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- FASE B -->
+            <div class="mb-3">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-amber-900 bg-amber-50 px-2 py-1 rounded flex items-center justify-between mb-1">
+                <span>FASE B: SAMBUNGAN AUDIO & VIDEO</span>
+                <span class="text-[10px] text-amber-800 font-semibold">Aktif</span>
+              </div>
+              <div class="space-y-1">
+                <button onclick="selectStep(4)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="4">
+                  <span class="truncate">04. Pasang Kabel Video HDMI Kamera PTZ</span>
+                  <span class="step-icon material-symbols-outlined text-emerald-600 text-[16px]">check_circle</span>
+                </button>
+                <button onclick="selectStep(5)" class="step-btn w-full text-left p-2 rounded-lg text-xs bg-amber-100/80 font-bold text-amber-950 flex items-center justify-between transition-colors border-l-4 border-amber-600" data-step="5">
+                  <span class="truncate">05. Sambungkan Mixer Kecil ke ATEM Mini</span>
+                  <span class="step-icon material-symbols-outlined text-amber-700 text-[16px]">radio_button_checked</span>
+                </button>
+                <button onclick="selectStep(6)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="6">
+                  <span class="truncate">06. Atur Gain Audio di ATEM Control</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+                <button onclick="selectStep(7)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="7">
+                  <span class="truncate">07. Tancapkan Kabel HDMI Extender TV Sayap</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- FASE C -->
+            <div class="mb-3">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant bg-surface-container px-2 py-1 rounded flex items-center justify-between mb-1">
+                <span>FASE C: TAYANGAN TV & PROYEKTOR</span>
+                <span class="text-[10px] text-outline">2 Langkah</span>
+              </div>
+              <div class="space-y-1">
+                <button onclick="selectStep(8)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="8">
+                  <span class="truncate">08. Nyalakan 4 TV Umat & Splitter HDMI</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+                <button onclick="selectStep(9)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="9">
+                  <span class="truncate">09. Set Rasio Aspek TV ke 16:9 Full Screen</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- FASE D -->
+            <div>
+              <div class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant bg-surface-container px-2 py-1 rounded flex items-center justify-between mb-1">
+                <span>FASE D: OBS & YOUTUBE LIVE</span>
+                <span class="text-[10px] text-outline">3 Langkah</span>
+              </div>
+              <div class="space-y-1">
+                <button onclick="selectStep(10)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="10">
+                  <span class="truncate">10. Buka OBS Studio & Masukkan Stream Key</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+                <button onclick="selectStep(11)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="11">
+                  <span class="truncate">11. Uji Bitrate 1080p & Sync Delay Audio</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+                <button onclick="selectStep(12)" class="step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors" data-step="12">
+                  <span class="truncate">12. Konfirmasi Teks NDI Slide Lirik Misa</span>
+                  <span class="step-icon material-symbols-outlined text-outline text-[16px]">lock</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar: Kenali Kabelmu -->
+          <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+            <h3 class="font-headline font-bold text-sm text-primary mb-2 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-secondary text-[18px]">cable</span>
+              <span>Kenali Kabelmu: TRS vs TS</span>
+            </h3>
+            <p class="text-xs text-on-surface-variant mb-3">Perhatikan jumlah cincin hitam pada ujung pin jack audio kamu:</p>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
+                <div class="flex items-center gap-2 font-bold text-amber-950">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                  <span>TRS (2 Cincin Hitam - Stereo)</span>
+                </div>
+                <p class="text-[11px] text-amber-900 mt-1">&check; Wajib untuk colokan Phones / Sub-Mixer ke Port Mic 1 ATEM Mini.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-surface-container border border-outline-variant/20">
+                <div class="flex items-center gap-2 font-bold text-on-surface">
+                  <span class="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+                  <span>TS (1 Cincin Hitam - Mono)</span>
+                </div>
+                <p class="text-[11px] text-on-surface-variant mt-1">&cross; Hanya mengalirkan suara sebelah (kiri saja). Jangan digunakan ke ATEM.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Active Step Interactive Panel -->
+        <div class="lg:col-span-7">
+          <div class="p-6 rounded-2xl bg-surface-container-lowest border-2 border-primary/20 shadow-md">
+            <!-- Step Header -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-outline-variant/20 mb-5">
+              <div class="flex items-center gap-2">
+                <span id="step-number-badge" class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center font-headline font-bold text-base">05</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span id="step-phase-tag" class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-950 uppercase">LANGKAH SAAT INI â€¢ FASE B</span>
+                    <span id="step-time-tag" class="text-[10px] font-medium text-on-surface-variant">Estimasi: 2 Menit</span>
+                  </div>
+                  <h2 id="step-title-display" class="font-headline font-bold text-lg text-primary mt-0.5">Sambungkan Mixer Kecil ke ATEM Mini</h2>
+                </div>
+              </div>
+              <span id="step-cable-tag" class="text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                Jack 3.5mm (Stereo TRS) | Audio Line In
+              </span>
+            </div>
+
+            <p id="step-desc-display" class="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-6">
+              Ambil kabel audio Jack 3.5mm berkepala oranye dari colokan <em>Phones / Output</em> Mixer Kecil Komsos, lalu colokkan ke port bertuliskan <strong>MIC 1</strong> di sisi belakang kiri ATEM Mini.
+            </p>
+
+            <!-- Visual Diagram Card (ATEM Mini Rear Panel) -->
+            <div id="step-diagram-box" class="w-full rounded-2xl bg-[#031525] p-5 text-white mb-6 border border-blue-900/50 shadow-inner">
+              <div class="flex items-center justify-between text-xs text-blue-200 pb-3 border-b border-blue-800/50 mb-4">
+                <span class="flex items-center gap-1 font-semibold">
+                  <span class="material-symbols-outlined text-[16px]">developer_board</span>
+                  <span>Diagram Belakang: Blackmagic ATEM Mini & Sub-Mixer</span>
+                </span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-blue-950 text-blue-300">Sisi Belakang Perangkat</span>
+              </div>
+
+              <!-- Schematic SVG diagram of rear connectors -->
+              <div class="py-4 flex flex-col items-center justify-center">
+                <div class="w-full max-w-lg bg-[#071d33] p-4 rounded-xl border border-blue-700/40 relative">
+                  <div class="text-[10px] text-blue-300 mb-3 uppercase tracking-wider text-center font-bold">BLACKMAGIC ATEM MINI â€” REAR PANEL</div>
+                  
+                  <div class="flex items-center justify-around gap-2 text-center">
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">12V DC</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">ETH</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">USB OUT</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">HDMI OUT</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">CAM 1</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">CAM 2</div>
+                    <div class="p-2 rounded bg-black/40 border border-white/10 text-[9px] text-gray-400">MIC 2</div>
+                    <!-- TARGET PORT HIGHLIGHT -->
+                    <div class="p-2 rounded bg-amber-500 text-amber-950 font-bold text-[10px] ring-4 ring-amber-400/50 animate-pulse">
+                      &darr; MIC 1
+                    </div>
+                  </div>
+
+                  <div class="mt-3 text-center">
+                    <span class="inline-block px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold border border-amber-400/40">
+                      &check; Colokkan Kabel Oranye 3.5mm Stereo di Port MIC 1 ini
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] text-blue-300 pt-2 border-t border-blue-900/50">
+                <span>&check; Port MIC 1 terletak di samping kanan tombol power (dilihat dari depan).</span>
+                <span class="font-bold text-amber-300">Kabel TRS Stereo 3.5mm</span>
+              </div>
+            </div>
+
+            <!-- Verification Checkbox -->
+            <label class="flex items-center justify-between p-4 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors border border-outline-variant/30 cursor-pointer mb-5">
+              <div class="flex items-center gap-3">
+                <input id="step-done-check" type="checkbox" onchange="toggleStepDone()" class="w-5 h-5 rounded text-primary focus:ring-primary"/>
+                <div>
+                  <p class="text-xs sm:text-sm font-bold text-primary">Sudah Dilakukan & Terkoneksi</p>
+                  <p class="text-xs text-on-surface-variant">Kabel tertancap rapat sampai berbunyi 'klik' lembut.</p>
+                </div>
+              </div>
+              <span class="text-[11px] font-bold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full">Wajib Dicek</span>
+            </label>
+
+            <!-- Alerts: Cek Dulu & Awas -->
+            <div class="space-y-3 mb-6 text-xs">
+              <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-emerald-700 text-[18px] shrink-0">verified</span>
+                <div>
+                  <strong>Cek dulu: Nyalakan mixer sebelum colok!</strong>
+                  <p class="mt-0.5 text-emerald-900">Pastikan mixer kecil Komsos dan ATEM Mini sudah menyala sebelum kabel dihubungkan agar tidak timbul lonjakan suara (pop noise) di headphone imam atau umat.</p>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-950 flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-red-700 text-[18px] shrink-0">warning</span>
+                <div>
+                  <strong>Awas: Jangan colok ke laptop!</strong>
+                  <p class="mt-0.5 text-red-900">Jangan gunakan port headphone di laptop MacBook kamu. Selalu gunakan port MIC 1 pada ATEM Mini agar sinkronisasi bibir imam dan suara mikrofon tetap presisi tanpa delay.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+              <button onclick="prevStep()" id="prev-step-btn" class="px-4 py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1.5 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                <span>Langkah Sebelumnya</span>
+              </button>
+
+              <button onclick="nextStep()" id="next-step-btn" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-white font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-sm">
+                <span>Simpan & Lanjut Langkah 06</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB-VIEW 2: SETUP YOUTUBE & OBS STUDIO -->
+    <div id="subview-software" class="hidden">
+      <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm mb-8">
+        <!-- Subheader & Warning -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-outline-variant/20 mb-6">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-secondary bg-amber-50 px-2.5 py-0.5 rounded">Modul 03 & 04: Integrasi Broadcast Digital</span>
+            <h2 class="font-headline font-bold text-xl sm:text-2xl text-primary mt-1">Panduan Siaran: Buat Link YouTube & Atur OBS</h2>
+            <p class="text-xs sm:text-sm text-on-surface-variant mt-1">Langkah visual anti-panik menyiapkan transmisi siaran misa dari YouTube Studio hingga kanvas OBS Studio.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-900 text-xs font-bold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Siap Siaran
+            </span>
+            <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-surface-container text-primary text-xs font-semibold hover:bg-surface-container-high flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">print</span>
+              <span>Cetak SOP</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Privacy Alert -->
+        <div class="p-4 rounded-xl bg-red-50 border border-red-200 text-red-950 flex items-start gap-3 mb-8">
+          <span class="material-symbols-outlined text-red-700 text-[22px] shrink-0">shield</span>
+          <div class="text-xs">
+            <strong class="font-bold text-red-900 uppercase">AWAS! JANGAN PERNAH BAGIKAN STREAM KEY KE SIAPA PUN!</strong>
+            <p class="mt-1 text-red-900/90 leading-relaxed">
+              Stream Key adalah kunci rahasia akses transmisi langsung ke channel YouTube Paroki. Jika bocor atau terlihat di layar proyektor gereja, siapa pun dapat membajak jalannya siaran perayaan ekaristi.
+            </p>
+          </div>
+        </div>
+
+        <!-- Software Tabs: YouTube Studio (5 Steps) vs OBS Studio (6 Steps) -->
+        <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-3 mb-6">
+          <button id="sw-btn-yt" onclick="toggleSoftwareTab('yt')" class="px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">smart_display</span>
+            <span>1. Buat Link YouTube (5 Langkah)</span>
+          </button>
+          <button id="sw-btn-obs" onclick="toggleSoftwareTab('obs')" class="px-4 py-2 rounded-xl text-xs font-bold bg-surface-container text-on-surface hover:text-primary transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+            <span>2. Atur OBS Studio (6 Langkah)</span>
+          </button>
+        </div>
+
+        <!-- YOUTUBE STUDIO STEPS -->
+        <div id="sw-panel-yt" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Step 1 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 01</span>
+                  <span>LAN Paroki</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Buka YouTube Studio</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuADDpA4JIwQjd6ROVkTJ9RfyVrkpzKL7HhRWxtztWm4hTlbEdrmmeFchl7PCJVL7Xl1nHVQuCcBXur0LQAbA3k_EOW2SVEQZa0np91CqwgBitpT2ZiEPKLh74lYy3tm3-ZboYEfwgS3MFG2L6uIup3f70ZEU2-SKrnrfCWj9c2PU0U_pM8FYV-lIzftVgdCV8dvSj2TbKNMdx_J_Yc3JojVCGNaT_kXnttyW7lJJ4c_UXGDbMrTIfsh" alt="Buka Studio" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Buka <code>studio.youtube.com</code> di Google Chrome dan login akun Komsos paroki.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Sudah login akun resmi</span>
+              </label>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 02</span>
+                  <span>Penjadwalan</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Buat Siaran Langsung</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX7TDFLJjUNiUqVlS4erinqpbULQlPCJAdKopOQ8TFp5wfFkbaAAAijx1WdlfkPa--XNYXJWH_9jGDL7pMcmMU-rtPHSY4FENPEopuEYxu-qS_LMiyBTeEWnWNMcUqky0a_3EfDzAHvaT6JrPZ9rm4PTaqGXx3fgjlC9SJAd-venzqgZKpApZBvlcPqF29FIqqLinj4Srk0zX5TqwSyk-u8yVamHCoJxnMkMuFj08h7_DpUBPtYVgc" alt="Buat Siaran" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Klik tombol merah 'Go Live' atau jadwalkan siaran baru di tab Stream.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Tab siaran live room terbuka</span>
+              </label>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 03</span>
+                  <span>Metadata Misa</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Isi Judul dan Deskripsi</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGLDIiSsGxO_QHQtmeJE8yk6-Ez8leCKV2LVxw3oVxNwGgrlmuTr96udNgH46K9MoRj_-kbozKL4fSY-Z90x2T3UtbflvKgKpJLu4qtKgGxQXhh6vIW5oY4n4E3benJpBO4ND3E04LquPAd0JdsCTsRIGZio27a_NCAwdJRM9cxE2hvuhZZwVGPHw4lobJqb3CviF0Lqv6WHsWsEocoLEo8rVoCjQWZ9f_3B9ycaD1OGLMxVtwAc2-" alt="Judul dan Deskripsi" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Tulis 'Misa Mingguan - [Nama Paroki] - [Tanggal]', tambahkan intensi misa di deskripsi.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Judul & thumbnail diunggah</span>
+              </label>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 04</span>
+                  <span>Visibilitas</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Pilih Privasi Siaran</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB0Eclkq_ZDO87tsMHn6egXEzgs13Lw8haw_qB0Jfsqbd5hTsfwgQgL5uHC3IP3G5sYbazFj27BhEI_UiJrcSu9e9KRs3oL4miaB9klhNzMOW_diRB610oI9l8icBwEu71DijlByH8YTFGNiASgQWU2ZDbFsxayg1IOGGZxosaK9rYBv_pNstr1ls1VFdygtFZwb30N7zD9lifPYYOqYpCa-8ur0RrbtWidgMsjznG_WLcEzHwpEtM" alt="Pilih Privasi" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Pilih 'Publik' untuk misa umum, atau 'Unlisted' saat sedang gladi kotor siaran.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Privasi disetel ke 'Publik'</span>
+              </label>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-300 flex flex-col justify-between md:col-span-2">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-amber-900 font-bold mb-2">
+                  <span class="text-amber-950 font-headline">Langkah 05 â€¢ Kunci Utama</span>
+                  <span>Stream Key RTMPS</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-amber-950 mb-2">Salin Stream Key</h4>
+                <div class="h-44 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQsZHHamlOM8JwUw8o1HP8c11JjHwWScvHWOqr7SV0qajx9_tlGBitQ7mOm1cxq6_NdRxTa9SwTMgHADL7KszRLBQWTCfr48rzxx3DR-Q7UnktNtQ3Hiwju-JgvhGGwFkr9VH28lTmOic1_2TqGf8T7SHwI9VoauiTjGB3wwtnBYjVCKkegTiim5JTiBtKCdOd2wGKRMYoz5CMKLxPYGYYIvwEPEDBY2G-PSX79SR-Ul9e-4dxGRuE" alt="Salin Stream Key" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-amber-950 mb-3">Klik tombol 'Salin' pada Stream Key default, jangan perlihatkan teks ke umum.</p>
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-amber-200">
+                <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer text-amber-950">
+                  <input type="checkbox" class="w-4 h-4 rounded text-amber-600"/>
+                  <span>Stream key tersimpan di clipboard</span>
+                </label>
+                <button onclick="toggleSoftwareTab('obs')" class="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold flex items-center gap-1">
+                  <span>Lanjut Masukkan ke OBS</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OBS STUDIO STEPS -->
+        <div id="sw-panel-obs" class="space-y-6 hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- OBS Step 1 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 01</span>
+                  <span>Settings &gt; Stream</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Tempel Stream Key YouTube</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKUDoLmCQsQBsW2GvXNITwdBjiabIoF0lxviMz2SDgQbceY5rrnxxnDj09sxz5IkqgjV3lO1_t-jMCBxQ4UDDZPkLOMnuIlW80h-cCE-04PWBO8nQFC3kHWbUO0gltKEKVMpYxVACRMaJxj6ygsdLCySZ19YO1D2bcO3umMUid3rmrR86Aq5kRSUPJ5ozAPawxnCMAw6EzsujvRgo0vV99i7Zp4tBAQXyuCzz2WSPA4NyHfO9vbMBp" alt="OBS Settings" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Buka Settings &gt; Stream, pilih Service YouTube - RTMPS, lalu Paste stream key yang sudah disalin.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Stream Key Terhubung</span>
+              </label>
+            </div>
+
+            <!-- OBS Step 2 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 02</span>
+                  <span>Output Video</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Atur Video 1080p 60fps</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWPdo3dp3IyHbt664ps3AM9rpgIR-ETEh98cyXzcXeNzKTE6q0cVNNYql-jvMrlJX15DPJjOTWEgb7YNbkHiWQIt7HQ1ObDbkEzGokDS0X1O0SailEkGUbRgzcJCiDXSrSnSgpEyD5ZzQSH3CrxER8Z1D2YypQ772q1qgeNVqwt1c29pwHc5BikrWaIvkxwyO8D5tb17P9ZZUvw9u8IsGpud3LLF4LS7gFMPHzuOhbcihErcwMjfiY" alt="OBS Video" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Base & Output Resolution 1920x1080, Common FPS 60, Bitrate video 4500 - 6000 Kbps.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Resolusi 1080p 60fps Set</span>
+              </label>
+            </div>
+
+            <!-- OBS Step 3 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 03</span>
+                  <span>Audio Sync Delay</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Sinkronisasi Audio & Bibir</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjOHd6MtUNPm8oz0jsH6lLvjWAHb-dScND0gzBmC2I_7l6rEmBfVtbb3LjKi_P9fgwZr3FAnXZYQ_gYSS0vYzG_Fr25mgU53jh3x2d8xObLFUX4oYD-7GG1og0cXeAZDHz6ElQ11W5uSoLWBIWvX8yy-3L8pRHSVccg_sTu-s1-j8SA3EBgORCANBnT2QLW4R5FBlgfxeIcSgZqIceP1UpqadlzLEdDjad4MyvcO3J2PVl3z7lkXF" alt="OBS Audio Delay" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Buka Advanced Audio Properties, beri offset sync delay (biasanya 120ms - 200ms) agar suara pas dengan gerak bibir imam.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>Delay audio tersinkronisasi</span>
+              </label>
+            </div>
+
+            <!-- OBS Step 4 -->
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between text-[11px] text-on-surface-variant font-bold mb-2">
+                  <span class="text-primary font-headline">Langkah 04</span>
+                  <span>NDI & Overlay</span>
+                </div>
+                <h4 class="font-headline font-bold text-sm text-primary mb-2">Hubungkan NDI Lirik Lagu</h4>
+                <div class="h-36 rounded-lg overflow-hidden bg-black mb-3">
+                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVZmaTRIIw5BE-ptcBMuZqtyvJ1uzC1LhtXle8wd-xkjiDnKctownQyaF7j1AZsuMG4cAJOxG8EoAeOqepYLyVhZ5Pj09teXZuzJwjqRp3GbHvIyK95t5UtGZNvUgsA8XZXFPQ6GoVzhkaBxI33mEVm1NPcwgGJaiLMVW20bmMbCyXGL6Nk3msvRYiL6wUYxDFRmw9I_Xv1fk93rG9QbTwTJpPdBIiVyQAw9Eejps_gd6MYBwcur2f" alt="OBS NDI Source" class="w-full h-full object-cover"/>
+                </div>
+                <p class="text-xs text-on-surface-variant mb-3">Tambahkan Source 'NDI Source' dari laptop presentasi teks lagu misa agar overlay lirik tampil transparan.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer pt-2 border-t border-outline-variant/20">
+                <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+                <span>NDI Lirik terdeteksi</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 4: ALUR SINYAL AV INTERAKTIF ================= -->
+  <section id="view-alur-sinyal" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
+      <a href="#beranda" class="hover:text-primary">Beranda</a>
+      <span>&rsaquo;</span>
+      <span class="text-secondary font-semibold">Modul 02 â€¢ Arsitektur Sistem Siaran Liturgi</span>
+    </div>
+
+    <!-- Title & Controls -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2">
+          <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+          <span>Simulasi Siaran Siap Belajar</span>
+        </div>
+        <h1 class="font-headline font-bold text-2xl sm:text-3xl text-primary tracking-tight">Peta Alur Sinyal AV Misa Kudus</h1>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-1 max-w-2xl">
+          Pahami dari mana suara dan gambar berasal sampai tayang di layar TV umat dan siaran YouTube. Klik salah satu jalur rute kabel untuk melihat detail sambungan port yang tepat!
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 self-start lg:self-auto">
+        <button id="simulasi-toggle-btn" onclick="toggleSimulasiSinyal()" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-container shadow-sm transition-all">
+          <span class="material-symbols-outlined text-[18px]">play_circle</span>
+          <span id="simulasi-btn-text">Mode Simulasi Aktif</span>
+        </button>
+        <button onclick="resetRutePilihan()" class="p-2.5 rounded-xl bg-surface-container text-on-surface text-xs font-semibold hover:bg-surface-container-high transition-colors" title="Reset Pilihan">
+          <span class="material-symbols-outlined text-[18px]">refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Architectural Stages Diagram (4 Columns) -->
+    <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm mb-8 overflow-x-auto">
+      <div class="min-w-[960px]">
+        <!-- Stage Headers -->
+        <div class="grid grid-cols-4 gap-4 mb-4 text-center font-bold text-xs uppercase tracking-wider text-primary">
+          <div class="p-2 rounded-lg bg-surface-container flex items-center justify-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">1</span>
+            <span>Sumber Masukan</span>
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container flex items-center justify-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">2</span>
+            <span>Prapemrosesan</span>
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container flex items-center justify-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">3</span>
+            <span>Pusat Switcher</span>
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container flex items-center justify-center gap-1.5">
+            <span class="w-5 h-5 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">4</span>
+            <span>Distribusi & Siaran</span>
+          </div>
+        </div>
+
+        <!-- Tier Grid -->
+        <div class="grid grid-cols-4 gap-4 items-center">
+          <!-- Col 1: Inputs -->
+          <div class="space-y-3">
+            <div id="node-mic" class="signal-node p-3 rounded-xl bg-purple-50/70 border-2 border-purple-300 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('mic-mixer')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-purple-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#7C3AED] text-[18px]">mic</span>
+                  <span>Mikrofon Altar & Mimbar</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-purple-900">Suara Imam & Lektor Misa</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-purple-950 bg-purple-200">XLR Balanced &rarr;</span>
+            </div>
+
+            <div id="node-ptz" class="signal-node p-3 rounded-xl bg-blue-50/70 border-2 border-blue-300 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('ptz-atem')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-blue-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#2563EB] text-[18px]">videocam</span>
+                  <span>Kamera PTZ Robotik</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-blue-900">Visual Altar & Panti Imam</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-blue-950 bg-blue-200">HDMI 1080p &rarr;</span>
+            </div>
+
+            <div id="node-teks" class="signal-node p-3 rounded-xl bg-emerald-50/70 border-2 border-emerald-300 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('ndi-obs')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-emerald-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#16A34A] text-[18px]">subtitles</span>
+                  <span>Laptop Teks Misa</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-emerald-900">Slide Lirik & Bacaan Alkitab</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-emerald-950 bg-emerald-200">NDI LAN &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Col 2: Pre-Processing -->
+          <div class="space-y-3">
+            <div id="node-mixer-utama" class="signal-node p-3 rounded-xl bg-surface-container border-2 border-outline-variant/40 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('mic-mixer')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-primary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px]">equalizer</span>
+                  <span>Mixer Audio Utama</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant">Soundcraft 16-Ch Gedung</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-primary bg-surface-container-high">Aux Send 3 &rarr;</span>
+            </div>
+
+            <div id="node-nvr" class="signal-node p-3 rounded-xl bg-surface-container border-2 border-outline-variant/40 text-left">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-primary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px]">dns</span>
+                  <span>NVR Recorder / Switch</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant">Distributor Sinyal Video</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-primary bg-surface-container-high">HDMI Cam Out &rarr;</span>
+            </div>
+
+            <div id="node-splitter" class="signal-node p-3 rounded-xl bg-surface-container border-2 border-outline-variant/40 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('obs-tv')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-primary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px]">call_split</span>
+                  <span>Splitter HDMI 1x4</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant">Penguat Sinyal TV Gedung</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-primary bg-surface-container-high">4x Extender Cat6 &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Col 3: Pusat Switcher -->
+          <div class="space-y-4">
+            <div id="node-submixer" class="signal-node p-3.5 rounded-xl bg-amber-50/80 border-2 border-amber-400 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('sub-atem')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-amber-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#F97316] text-[18px]">tune</span>
+                  <span>Sub-Mixer Meja Komsos</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-amber-900">Kontrol Level Live (-12dB)</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-amber-950 bg-amber-200">TRS 3.5mm Out &rarr;</span>
+            </div>
+
+            <div id="node-atem" class="signal-node p-3.5 rounded-xl bg-blue-50/80 border-2 border-blue-400 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('sub-atem')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-blue-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#2563EB] text-[18px]">developer_board</span>
+                  <span>ATEM Mini Switcher</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-blue-900">Pemilih 4 Kamera + Mic 1 In</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-blue-950 bg-blue-200">USB-C Webcam Out &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Col 4: Distribusi & Siaran -->
+          <div class="space-y-4">
+            <div id="node-obs" class="signal-node p-3.5 rounded-xl bg-surface-container-low border-2 border-primary/30 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('obs-yt')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-primary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px]">laptop_mac</span>
+                  <span>MacBook OBS Studio</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant">Encoding H.264 1080p 60fps</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-white bg-primary">RTMPS YouTube &rarr;</span>
+            </div>
+
+            <div id="node-tv" class="signal-node p-3 rounded-xl bg-surface-container border-2 border-outline-variant/30 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('obs-tv')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-primary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[18px]">tv</span>
+                  <span>4x TV Layar Umat</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant">Sayap Kiri, Kanan, & Koridor</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-primary bg-surface-container-high">HDMI Local Loop</span>
+            </div>
+
+            <div id="node-yt" class="signal-node p-3.5 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-left cursor-pointer transition-all hover:shadow-md" onclick="selectRute('obs-yt')">
+              <div class="flex items-center justify-between text-xs mb-1">
+                <span class="font-bold text-emerald-950 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[#16A34A] text-[18px]">smart_display</span>
+                  <span>YouTube Live Misa</span>
+                </span>
+              </div>
+              <p class="text-[11px] text-emerald-900">Siaran Umat di Rumah</p>
+              <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold text-emerald-950 bg-emerald-200">Status: Mengudara</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Route Filter Selector Pills -->
+    <div class="mb-6">
+      <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block mb-2">Pilih Rute Sinyal yang Ingin Kamu Periksa:</span>
+      <div class="flex items-center gap-2 flex-wrap" id="rute-selector-group">
+        <button onclick="selectRute('sub-atem')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-primary text-white transition-all shadow-sm" data-rute="sub-atem">
+          [Sub-Mixer &rarr; ATEM Mini]
+        </button>
+        <button onclick="selectRute('mic-mixer')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all" data-rute="mic-mixer">
+          [XLR Mic &rarr; Mixer Utama]
+        </button>
+        <button onclick="selectRute('ptz-atem')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all" data-rute="ptz-atem">
+          [Kamera PTZ &rarr; ATEM In 1]
+        </button>
+        <button onclick="selectRute('ndi-obs')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all" data-rute="ndi-obs">
+          [NDI Teks &rarr; OBS Studio]
+        </button>
+        <button onclick="selectRute('obs-tv')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all" data-rute="obs-tv">
+          [OBS Studio &rarr; 4 TV Gedung]
+        </button>
+        <button onclick="selectRute('obs-yt')" class="rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all" data-rute="obs-yt">
+          [OBS Studio &rarr; YouTube Live]
+        </button>
+      </div>
+    </div>
+
+    <!-- DYNAMIC ROUTE INSPECTOR PANEL -->
+    <div id="rute-detail-card" class="p-6 rounded-2xl bg-surface-container-lowest border-2 border-primary/20 shadow-md mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-outline-variant/20 mb-4 gap-2">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-bold">
+            <span class="material-symbols-outlined text-[22px]">cable</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Detail Pemeriksaan Port AV</span>
+            <h2 id="rute-title" class="font-headline font-bold text-base sm:text-lg text-primary">Koneksi: Sub-Mixer ke ATEM Mini (Audio Masuk Switcher)</h2>
+          </div>
+        </div>
+        <span id="rute-status" class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold self-start sm:self-auto flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Sinyal Aktif & Terkalibrasi</span>
+        </span>
+      </div>
+
+      <!-- Specs 3 Boxes -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="text-[11px] font-bold text-on-surface-variant uppercase mb-1">JENIS KABEL STANDAR</div>
+          <p id="rute-kabel" class="text-sm font-bold text-primary">Kabel Jack 3.5mm Stereo (TRS) to 3.5mm</p>
+          <span class="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">Audio Line / Aux Stereo</span>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="text-[11px] font-bold text-on-surface-variant uppercase mb-1">DARI PORT PERANGKAT (OUTPUT)</div>
+          <p id="rute-out" class="text-sm font-bold text-primary">Mixer Kecil Komsos: Phones / Monitor Out L-R</p>
+          <p class="text-[11px] text-on-surface-variant mt-1">Knob volume monitor di arah jam 10 agar level sinyal stabil di 0 dB VU tanpa distorsi.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="text-[11px] font-bold text-on-surface-variant uppercase mb-1">KE PORT PERANGKAT (INPUT)</div>
+          <p id="rute-in" class="text-sm font-bold text-primary">ATEM Mini: Port Mic 1 (Bagian Belakang Kiri)</p>
+          <p class="text-[11px] text-on-surface-variant mt-1">Pilih port 'Mic 1', bukan 'Mic 2'. Jalur Mic 1 diintegrasikan dengan frame rate video utama.</p>
+        </div>
+      </div>
+
+      <!-- Tips & Awas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 flex items-start gap-3">
+          <span class="material-symbols-outlined text-amber-700 text-[20px] shrink-0">tips_and_updates</span>
+          <div>
+            <strong class="font-bold">Tips Kru Komsos: Kalibrasi Gain</strong>
+            <p id="rute-tip" class="mt-1 leading-relaxed">Atur gain Mic 1 di laptop lewat aplikasi ATEM Software Control ke kisaran -6dB sampai -12dB. Ini memberi headroom aman saat imam menyanyikan Prefasi bernada tinggi agar suara tidak serak/pecah!</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-red-50 border border-red-200 text-red-950 flex items-start gap-3">
+          <span class="material-symbols-outlined text-red-700 text-[20px] shrink-0">error</span>
+          <div>
+            <strong class="font-bold">Awas! Kesalahan Sering Terjadi</strong>
+            <p id="rute-awas" class="mt-1 leading-relaxed">Jangan colok kabel ini langsung ke lubang audio MacBook! Jack headphone di laptop adalah port keluaran (output). Masukkan selalu ke ATEM Mini Mic 1 agar di-encode serentak bersama gambar video.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Rahasia Sinyal Lancar -->
+    <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+      <div class="mb-4">
+        <span class="text-[11px] font-bold text-secondary uppercase tracking-wider">Disiplin Liturgis Meja AV</span>
+        <h3 class="font-headline font-bold text-base sm:text-lg text-primary mt-0.5">3 Rahasia Sinyal Lancar Kru Komsos Muda</h3>
+        <p class="text-xs text-on-surface-variant">Patuhi tiga disiplin sederhana ini 30 menit sebelum lonceng misa berbunyi.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs mb-3">01</div>
+          <h4 class="font-headline font-bold text-xs sm:text-sm text-primary mb-1">Amati Audio Metering (Hijau-Kuning)</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Saat doa pembuka atau nyanyian Gloria, pastikan level audio OBS memantul di zona hijau dan sesekali kuning (-12dB s/d -6dB). Jangan sampai merah!</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs mb-3">02</div>
+          <h4 class="font-headline font-bold text-xs sm:text-sm text-primary mb-1">Urutan Nyala (Handshake HDMI)</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Kabel HDMI sangat sensitif terhadap jabat tangan digital. Selalu tancapkan seluruh kabel HDMI ke switcher sebelum adaptor listrik switcher dinyalakan.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs mb-3">03</div>
+          <h4 class="font-headline font-bold text-xs sm:text-sm text-primary mb-1">Wajib Kabel LAN, Haram Pakai Wi-Fi</h4>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Saat 500+ umat memasuki gedung gereja, Wi-Fi paroki akan terganggu interferensi smartphone. Selalu gunakan kabel LAN Cat6 langsung dari router khusus siaran.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 5: KONTROL KAMERA PTZ ================= -->
+  <section id="view-ptz" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
+      <a href="#beranda" class="hover:text-primary">Beranda</a>
+      <span>&rsaquo;</span>
+      <span>Jalur Pembelajaran</span>
+      <span>&rsaquo;</span>
+      <span class="text-secondary font-semibold">Modul 05: Kontrol Kamera PTZ (iVMS-4200)</span>
+    </div>
+
+    <!-- Title & Status -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
+      <div>
+        <div class="flex items-center gap-2 flex-wrap mb-2">
+          <span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 text-[11px] font-bold">Modul 05 â€¢ Operasional Kamera</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-bold">Edisi Misa Kudus</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+            Status Kamera: Terhubung (1080p 50fps)
+          </span>
+        </div>
+        <h1 class="font-headline font-bold text-2xl sm:text-3xl text-primary tracking-tight">Kontrol Kamera PTZ: Kendali Halus & Presisi Liturgi</h1>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-1 max-w-2xl">
+          Panduan praktis mengoperasikan software iVMS-4200 untuk mengarahkan kamera robotik altar secara lembut, terhormat, dan tanpa gerakan mengagetkan umat yang sedang berdoa.
+        </p>
+      </div>
+
+      <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary text-xs font-semibold self-start lg:self-auto transition-colors">
+        <span class="material-symbols-outlined text-[16px]">print</span>
+        <span>Cetak Lembar Presisi (PDF)</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left: Interactive iVMS Controller Simulator (7 cols) -->
+      <div class="lg:col-span-7 bg-[#1c222d] text-white p-5 rounded-2xl shadow-xl border border-gray-700">
+        <!-- Controller Window Header -->
+        <div class="flex items-center justify-between pb-3 border-b border-gray-700/60 mb-4 text-xs">
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            </div>
+            <span class="font-bold tracking-tight text-gray-200">iVMS-4200 Client v3.9 â€¢ PTZ Control Rig</span>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">â— PTZ LINKED</span>
+        </div>
+
+        <!-- Camera Source Dropdown Simulator -->
+        <div class="flex items-center justify-between bg-black/40 p-2.5 rounded-xl mb-3 text-xs border border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-gray-300">Sumber Input:</span>
+            <select id="ptz-source-select" class="bg-gray-800 text-white rounded px-2 py-1 text-xs border border-gray-600 focus:outline-none">
+              <option>CAM 01 - PTZ Altar Utama (Hikvision DS-2DE)</option>
+              <option>CAM 02 - Mimbar Sabda & Ambo</option>
+              <option>CAM 03 - Koor & Paduan Suara</option>
+            </select>
+          </div>
+          <span class="text-[11px] text-gray-400">Pelayanan: Misa Minggu</span>
+        </div>
+
+        <!-- SIMULATED VIEWFINDER -->
+        <div class="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden bg-black border border-gray-700 mb-4 select-none">
+          <!-- Viewport Image Container with Pan/Tilt/Zoom transform -->
+          <div id="ptz-viewport" class="w-full h-full relative transition-transform duration-300 ease-out flex items-center justify-center">
+            <img id="ptz-altar-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk43jB0uXTX-t5JU4K2FWl4NR_xaIfTzcra3pW7PF_r66DsC79DE7ZR7k2vouDMem-pmiUQuhjG975b036czrw8EhrIZGmzbklZdaDPNyDkbXP-106z87cTx2qpfanjLxhJW3wvQ6n8Pm-WwFemdPWcSLjG4wgGK365zep96gxOfbTzcGajqOAKyS6kkQ4iLhl2q0gg4EKHNbJz5pMk0xvKpx5xUohCCceap6BzEFEBJMfgrLMy_8P" alt="Viewfinder Altar" class="w-full h-full object-cover"/>
+            
+            <!-- Target Framing Box Overlay -->
+            <div id="ptz-target-box" class="absolute w-36 h-28 border-2 border-amber-400/80 rounded-lg pointer-events-none transition-all duration-300 flex items-center justify-center">
+              <span class="text-[9px] font-bold text-amber-300 bg-black/60 px-1 py-0.5 rounded absolute -top-3">FOCUS TARGET</span>
+            </div>
+          </div>
+
+          <!-- Rule of Thirds Grid Overlay -->
+          <div id="ptz-grid" class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 border border-white/10">
+            <div class="border-r border-b border-white/20"></div>
+            <div class="border-r border-b border-white/20"></div>
+            <div class="border-b border-white/20"></div>
+            <div class="border-r border-b border-white/20"></div>
+            <div class="border-r border-b border-white/20"></div>
+            <div class="border-b border-white/20"></div>
+            <div class="border-r border-white/20"></div>
+            <div class="border-r border-white/20"></div>
+            <div></div>
+          </div>
+
+          <!-- OSD Badges on Viewfinder -->
+          <div class="absolute top-2 left-2 flex items-center gap-1.5 text-[10px] font-mono bg-black/70 px-2 py-0.5 rounded text-white">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span>LIVE [1080P 50FPS]</span>
+          </div>
+
+          <div class="absolute top-2 right-2 text-[10px] font-mono bg-black/70 px-2 py-0.5 rounded text-gray-300">
+            ISO 400 | f/5.6 | 1/160s | Audio: -12dB
+          </div>
+
+          <div class="absolute bottom-2 left-2 text-[10px] font-mono text-white/80 bg-black/60 px-2 py-0.5 rounded">
+            CAM_ALTAR_UTAMA_PAROKI
+          </div>
+
+          <div id="ptz-status-overlay" class="absolute bottom-2 right-2 text-[11px] font-bold font-mono px-2 py-0.5 rounded bg-amber-500/90 text-black">
+            PRESET: 01 (ALTAR UTAMA)
+          </div>
+        </div>
+
+        <!-- Controls: Pan/Tilt Pad + Zoom/Focus + Presets -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-900/80 p-4 rounded-xl border border-gray-700/80 mb-4">
+          <!-- Pan & Tilt Directional Joystick Pad -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-gray-300 uppercase text-[11px]">2. Bantalan Pan / Tilt</span>
+              <span class="text-[10px] text-amber-400 font-bold">MODE HALUS</span>
+            </div>
+
+            <div class="flex flex-col items-center justify-center gap-1">
+              <!-- Up -->
+              <button onclick="ptzMove('up')" class="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-amber-600 text-white flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[20px]">keyboard_arrow_up</span>
+              </button>
+              
+              <div class="flex items-center gap-2">
+                <!-- Left -->
+                <button onclick="ptzMove('left')" class="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-amber-600 text-white flex items-center justify-center transition-colors">
+                  <span class="material-symbols-outlined text-[20px]">keyboard_arrow_left</span>
+                </button>
+                <!-- Center Reset -->
+                <button onclick="ptzReset()" class="w-10 h-10 rounded-lg bg-amber-600 hover:bg-amber-500 active:scale-95 text-white flex items-center justify-center transition-all" title="Reset Posisi Tengah">
+                  <span class="material-symbols-outlined text-[18px]">radio_button_checked</span>
+                </button>
+                <!-- Right -->
+                <button onclick="ptzMove('right')" class="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-amber-600 text-white flex items-center justify-center transition-colors">
+                  <span class="material-symbols-outlined text-[20px]">keyboard_arrow_right</span>
+                </button>
+              </div>
+
+              <!-- Down -->
+              <button onclick="ptzMove('down')" class="w-10 h-10 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-amber-600 text-white flex items-center justify-center transition-colors">
+                <span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span>
+              </button>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between text-[10px] text-gray-400">
+              <span>Kecepatan Motor PTZ:</span>
+              <span class="font-bold text-amber-400">Level 2 (Presisi Halus)</span>
+            </div>
+          </div>
+
+          <!-- Zoom & Optics -->
+          <div>
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="font-bold text-gray-300 uppercase text-[11px]">3. Zoom Optik & Fokus</span>
+              <span class="text-[10px] text-emerald-400 font-bold">&check; AF Aktif</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <button onclick="ptzZoom('in')" class="py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white flex items-center justify-center gap-1 text-xs font-semibold transition-colors">
+                <span class="material-symbols-outlined text-[18px]">zoom_in</span>
+                <span>Zoom Dekat (+)</span>
+              </button>
+              <button onclick="ptzZoom('out')" class="py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 active:bg-blue-600 text-white flex items-center justify-center gap-1 text-xs font-semibold transition-colors">
+                <span class="material-symbols-outlined text-[18px]">zoom_out</span>
+                <span>Zoom Luas (-)</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button onclick="ptzAutoFocus()" class="py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center gap-1 text-[11px]">
+                <span class="material-symbols-outlined text-[14px]">center_focus_strong</span>
+                <span>One-Push AF</span>
+              </button>
+              <button onclick="toggleGrid()" class="py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 flex items-center justify-center gap-1 text-[11px]">
+                <span class="material-symbols-outlined text-[14px]">grid_3x3</span>
+                <span>Grid 1/3</span>
+              </button>
+            </div>
+
+            <p class="text-[10px] text-gray-400 mt-2.5 leading-relaxed">
+              *Gunakan Zoom Optik saat piala & hosti diangkat. Hindari zoom digital karena membuat gambar berpasir (grainy).
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Preset Cepat 1-Klik -->
+        <div>
+          <div class="flex items-center justify-between text-xs mb-2">
+            <span class="font-bold text-gray-300 uppercase text-[11px]">4. Preset Cepat 1-Klik Sesuai Liturgi</span>
+            <span class="text-[10px] text-gray-400">Panggil dalam 1 Detik</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="applyPtzPreset(1)" class="ptz-preset-btn p-2 rounded-xl bg-primary border-2 border-amber-400 text-center transition-all hover:scale-105" data-preset="1">
+              <span class="text-[10px] font-bold text-amber-400 block uppercase">PRESET 01</span>
+              <span class="text-xs font-bold text-white block">Altar Utama</span>
+              <span class="text-[9px] text-gray-300 block mt-0.5">â€¢ Aktif</span>
+            </button>
+
+            <button onclick="applyPtzPreset(2)" class="ptz-preset-btn p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-center transition-all hover:scale-105" data-preset="2">
+              <span class="text-[10px] font-bold text-gray-400 block uppercase">PRESET 02</span>
+              <span class="text-xs font-bold text-white block">Mimbar / Ambo</span>
+              <span class="text-[9px] text-gray-400 block mt-0.5">Lektor & Homili</span>
+            </button>
+
+            <button onclick="applyPtzPreset(3)" class="ptz-preset-btn p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-center transition-all hover:scale-105" data-preset="3">
+              <span class="text-[10px] font-bold text-gray-400 block uppercase">PRESET 03</span>
+              <span class="text-xs font-bold text-white block">Koor / Paduan</span>
+              <span class="text-[9px] text-gray-400 block mt-0.5">Paduan Suara</span>
+            </button>
+
+            <button onclick="applyPtzPreset(4)" class="ptz-preset-btn p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-center transition-all hover:scale-105" data-preset="4">
+              <span class="text-[10px] font-bold text-gray-400 block uppercase">PRESET 04</span>
+              <span class="text-xs font-bold text-white block">Panti Imam Luas</span>
+              <span class="text-[9px] text-gray-400 block mt-0.5">Perarakan & Umat</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Liturgical Guidelines & Virtual Simulator (5 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        <!-- Awas Fatal -->
+        <div class="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-950 flex items-start gap-3">
+          <span class="material-symbols-outlined text-red-700 text-[24px] shrink-0">warning</span>
+          <div class="text-xs">
+            <strong class="font-bold text-red-900 uppercase">Awas! Kesalahan Fatal Operator PTZ</strong>
+            <p class="mt-1 text-red-900/90 leading-relaxed">
+              <strong>Jangan pernah</strong> menggerakkan joystick kamera saat kamera PTZ sedang tayang <strong>LIVE</strong> di OBS atau switcher! Pindahkan dulu preview switcher ke Kamera 2 (Statis) atau Slide Teks Misa, baru gerakkan kamera PTZ ke posisi berikutnya.
+            </p>
+          </div>
+        </div>
+
+        <!-- Panduan Liturgi Misa: Kapan Dipakai -->
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-secondary text-[20px]">church</span>
+            <h3 class="font-headline font-bold text-sm text-primary">Kapan Dipakai? Preset Sesuai Momen Misa</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant mb-4">Hafalkan urutan momen ekaristi berikut agar kamu selalu satu langkah lebih cepat dari gerak imam:</p>
+
+          <div class="space-y-2.5 text-xs">
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-primary block">1. Ritus Pembuka</strong>
+                <span class="text-[11px] text-on-surface-variant">Perarakan masuk misdinar, penghormatan altar, dan Doa Kolekta Pembuka.</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-900 shrink-0">Preset 04: Luas</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-primary block">2. Liturgi Sabda</strong>
+                <span class="text-[11px] text-on-surface-variant">Bacaan I, Mazmur Tanggapan, Bacaan II, Bait Pengantar, dan Homili Pastor.</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 shrink-0">Preset 02: Mimbar</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-primary block">3. Liturgi Ekaristi (Puncak)</strong>
+                <span class="text-[11px] text-on-surface-variant">Persiapan persembahan, Prefasi, Doa Syukur Agung, dan Konsekrasi Sakramen.</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary text-white shrink-0">Preset 01: Altar</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-start justify-between gap-2">
+              <div>
+                <strong class="text-primary block">4. Ritus Komuni & Berkat</strong>
+                <span class="text-[11px] text-on-surface-variant">Antrean penerimaan Komuni kudus, nyanyian syukur koor, dan Berkat Meriah.</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900 shrink-0">Preset 03 / 04</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ruang Latihan Virtual -->
+        <div class="p-5 rounded-2xl bg-[#032448] text-white shadow-md">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-headline font-bold text-xs uppercase text-amber-400">Ruang Latihan Virtual</span>
+            <span class="text-[10px] font-mono text-blue-200">SIMULATOR 05</span>
+          </div>
+          <p class="text-xs text-blue-100 mb-3">Klik tombol di bawah untuk menguji refleks kamu mengingat preset yang tepat sebelum bertugas di sakristi:</p>
+
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="testRefleksPtz(1)" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-center transition-colors text-xs font-semibold">
+              Tes Altar (Konsekrasi)
+            </button>
+            <button onclick="testRefleksPtz(2)" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-center transition-colors text-xs font-semibold">
+              Tes Mimbar (Homili)
+            </button>
+            <button onclick="testRefleksPtz(3)" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-center transition-colors text-xs font-semibold">
+              Tes Koor (Komuni)
+            </button>
+          </div>
+
+          <div id="ptz-refleks-msg" class="mt-3 p-2 rounded-lg bg-white/10 text-xs text-blue-100 text-center hidden"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 6: MODE HARI-H CHECKLIST CEPAT ================= -->
+  <section id="view-hari-h" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Top Dark Focused Banner -->
+    <div class="relative w-full rounded-2xl overflow-hidden bg-[#0a192f] text-white p-6 sm:p-8 shadow-xl mb-6 border border-blue-900/60">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-amber-950 font-bold text-[11px] uppercase tracking-wider">
+              â— MODE HARI-H â€¢ LITURGI MINGGU
+            </span>
+            <span class="text-xs text-blue-200">Fokus Siaran Langsung Sakristi & Meja Kontrol</span>
+          </div>
+          <h1 class="font-headline font-bold text-2xl sm:text-3xl text-white tracking-tight">
+            Mode Hari-H: Kendali Cepat & Checklist Siaran
+          </h1>
+          <p class="text-xs sm:text-sm text-blue-200/90 mt-1 max-w-2xl leading-relaxed">
+            Kontras tinggi, responsif, dan bebas gangguan. Didesain untuk operator muda sakristi agar tetap tenang, sigap, dan khidmat melayani Ekaristi.
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-center flex flex-col items-center justify-center shrink-0">
+          <div class="flex items-center gap-2 text-emerald-400 font-mono font-bold text-xs">
+            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>STATUS SIAGA LITURGI</span>
+          </div>
+          <span class="font-headline font-bold text-base text-white mt-1">Siaga 1 â€¢ Siap Tekan LIVE</span>
+        </div>
+      </div>
+
+      <!-- Checklist Master Progress Strip -->
+      <div class="mt-6 pt-5 border-t border-blue-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3 flex-1 max-w-md">
+          <span id="hari-h-counter" class="font-headline font-bold text-sm text-amber-400 whitespace-nowrap">7 / 15 LANGKAH SIAP</span>
+          <div class="w-full h-3 rounded-full bg-blue-950 overflow-hidden border border-blue-800">
+            <div id="hari-h-progress-bar" class="h-full bg-amber-400 rounded-full w-[47%] transition-all duration-300"></div>
+          </div>
+          <span id="hari-h-percent" class="font-mono text-xs text-blue-200 font-bold">47%</span>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="resetHariHChecklist()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-gray-200 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">refresh</span>
+            <span>Reset Semua</span>
+          </button>
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-gray-200 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">print</span>
+            <span>Cetak Checklist</span>
+          </button>
+          <button onclick="toggleFullscreen()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-gray-200 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">fullscreen</span>
+            <span>Layar Penuh</span>
+          </button>
+          <button onclick="openHotlineModal()" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-colors flex items-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-[14px]">emergency</span>
+            <span>Hotline Darurat</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content: Left Checklist (7 cols) + Right Live Telemetry (5 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left: 3-Phase Accordion Checklist -->
+      <div class="lg:col-span-7 space-y-4">
+        <!-- PHASE 01: SEBELUM SIARAN -->
+        <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm overflow-hidden">
+          <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-outline-variant/20">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs">01</span>
+              <div>
+                <h3 class="font-headline font-bold text-sm text-primary">SEBELUM SIARAN (H-45 Menit)</h3>
+                <p class="text-[11px] text-on-surface-variant">Persiapan hardware, koneksi sinyal, dan soundcheck awal</p>
+              </div>
+            </div>
+            <span id="p1-counter" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">7/8 Selesai</span>
+          </div>
+
+          <div class="p-4 space-y-2.5 text-xs">
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Nyalakan MacBook dan Buka OBS Studio</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-blue-100 text-blue-900 font-semibold">Kamera/Laptop</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Pastikan profile canvas 1080p 60fps aktif dan adaptor charger MagSafe tersambung ke steker sakristi.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Nyalakan Mixer Audio Utama & ATEM Mini</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Power Switcher</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Periksa lampu indikator power menyala stabil. Jangan nyalakan amplifier sound gedung sebelum mixer online.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Cek Kabel Audio (Jack 3.5mm) & Video (HDMI)</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold">Jack 3.5mm</span>
+                <span class="text-[10px] ml-1 px-1.5 py-0.5 rounded bg-blue-100 text-blue-900 font-semibold">HDMI 1-4</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Pastikan tertancap rapat sampai berbunyi klik di port Mic 1 ATEM Mini dan kunci sekrup HDMI terpasang.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Cek 4 TV Umat di Gedung Gereja</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Display Umat</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Sinyal proyektor & splitter HDMI aktif, rasio 16:9 full screen, teks panduan lagu misa terbaca jelas.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Cek Link YouTube & Judul Misa Hari Ini</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-red-100 text-red-900 font-semibold">YouTube Studio</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Stream key tersalin ke OBS, privasi 'Publik', thumbnail kalender liturgi dan intensi misa telah disematkan.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Cek Jaringan Kabel LAN (Bukan WiFi!)</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">RJ45 LAN</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Indikator port ethernet hijau berkedip, WiFi laptop wajib OFF, speedtest unggah stabil di atas 15 Mbps.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" checked onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-on-surface">Cek Logo Paroki & Teks Misa (NDI / Lower Third)</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-purple-100 text-purple-900 font-semibold">Grafis</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Slide Mazmur Tanggapan, Bacaan Pertama/Kedua, dan lirik pembuka terhubung tanpa lag via network.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer bg-amber-50/60 border border-amber-200">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary focus:ring-primary"/>
+              <div class="flex-1">
+                <span class="font-bold text-amber-950">Soundcheck Suara Mikrofon Altar & Koor</span>
+                <span class="text-[10px] ml-1.5 px-1.5 py-0.5 rounded bg-red-100 text-red-900 font-bold uppercase">Kritis</span>
+                <p class="text-[11px] text-amber-900 mt-0.5">Minta lektor tes suara. VU meter OBS harus berayun santai di zona hijau-kuning (-12dB s/d -6dB), tidak boleh tembus merah (0dB).</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- PHASE 02: SAAT SIARAN -->
+        <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm overflow-hidden">
+          <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-outline-variant/20">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold text-xs">02</span>
+              <div>
+                <h3 class="font-headline font-bold text-sm text-primary">SAAT SIARAN (Sedang Berlangsung)</h3>
+                <p class="text-[11px] text-on-surface-variant">Fokus liturgis, perpindahan kamera halus, dan pantauan audio konstan</p>
+              </div>
+            </div>
+            <span id="p2-counter" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface">0/4 Selesai</span>
+          </div>
+
+          <div class="p-4 space-y-2.5 text-xs">
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Transisi Kamera Mengikuti Urutan Misa (Tanpa Gerak Kasar)</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Gunakan tombol Cut & Auto di ATEM Mini. Ganti preset PTZ saat preview sedang berada di kamera statis.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Pantau Indikator Audio Metering Tetap -12dB</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Perhatikan volume saat koor bernyanyi bersama umat agar suara live tidak clipping.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Kunci Posisi Kamera (Lock Shot) Saat Doa Syukur Agung</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Hening total tanpa pergerakan joystick saat imam mengangkat Hosti Suci dan Piala.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Sinkronisasi Teks Lirik Lagu & Bacaan Kitab Suci</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Tampilkan lower-third tepat saat lektor mulai membaca dan sembunyikan saat selesai.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- PHASE 03: SESUDAH SIARAN -->
+        <div class="rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm overflow-hidden">
+          <div class="p-4 bg-surface-container-low flex items-center justify-between border-b border-outline-variant/20">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs">03</span>
+              <div>
+                <h3 class="font-headline font-bold text-sm text-primary">SESUDAH SIARAN (Paska Misa)</h3>
+                <p class="text-[11px] text-on-surface-variant">Penghentian siaran aman, penggulungan kabel, dan laporan sakristi</p>
+              </div>
+            </div>
+            <span id="p3-counter" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface">0/3 Selesai</span>
+          </div>
+
+          <div class="p-4 space-y-2.5 text-xs">
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Akhiri Streaming di OBS Studio & YouTube Studio</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Tekan 'Stop Streaming' di OBS setelah lagu penutup selesai dan imam meninggalkan altar.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Matikan Switcher & Cabut Dummy Battery Kamera</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Hindari membiarkan kamera dalam kondisi standby panas tanpa pendingin.</p>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+              <input type="checkbox" onchange="updateHariHCount()" class="hari-h-box mt-0.5 w-4 h-4 rounded text-primary"/>
+              <div>
+                <span class="font-bold text-on-surface">Gulung Kabel Over-Under & Bersihkan Meja Kontrol</span>
+                <p class="text-[11px] text-on-surface-variant mt-0.5">Kembalikan mikrofon lektor dan headset operator ke lemari sakristi dalam keadaan bersih.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Telemetry & Audio Peak Meter -->
+      <div class="lg:col-span-5 space-y-5">
+        <!-- Live Diagnostics Card -->
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20 mb-4">
+            <span class="font-headline font-bold text-xs uppercase text-primary">Diagnostik Siaran Meja Kontrol</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-bold">Normal</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-5">
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="text-[10px] text-on-surface-variant font-bold uppercase">Bitrate Video</span>
+              <p class="font-mono font-bold text-lg text-primary mt-0.5">4,820 <span class="text-xs font-normal">kbps</span></p>
+              <span class="text-[10px] text-emerald-700 font-semibold">&uarr; Stabil 60fps</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="text-[10px] text-on-surface-variant font-bold uppercase">Dropped Frames</span>
+              <p class="font-mono font-bold text-lg text-emerald-700 mt-0.5">0.0%</p>
+              <span class="text-[10px] text-on-surface-variant font-semibold">&check; 0 frame hilang</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="text-[10px] text-on-surface-variant font-bold uppercase">Audio Headroom</span>
+              <p class="font-mono font-bold text-lg text-amber-700 mt-0.5">-9.2 <span class="text-xs font-normal">dB</span></p>
+              <span class="text-[10px] text-amber-800 font-semibold">&bull; Zona Aman</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant/20">
+              <span class="text-[10px] text-on-surface-variant font-bold uppercase">Suhu ATEM Mini</span>
+              <p class="font-mono font-bold text-lg text-primary mt-0.5">41&deg;C</p>
+              <span class="text-[10px] text-on-surface-variant font-semibold">Normal Fan</span>
+            </div>
+          </div>
+
+          <!-- REAL-TIME ANIMATED AUDIO VU METER -->
+          <div class="p-4 rounded-xl bg-gray-900 text-white">
+            <div class="flex items-center justify-between text-xs text-gray-300 mb-2">
+              <span class="font-bold flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-emerald-400">equalizer</span>
+                <span>Peak Meter Audio Misa (L / R)</span>
+              </span>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold">Optimal -12dB</span>
+            </div>
+
+            <!-- Left Channel Meter Bar -->
+            <div class="mb-2">
+              <div class="flex items-center justify-between text-[10px] text-gray-400 font-mono mb-1">
+                <span>L: Imam & Lektor</span>
+                <span id="vu-l-text">-11.8 dB</span>
+              </div>
+              <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden p-0.5 flex">
+                <div id="vu-meter-l" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 to-red-500 w-[65%] transition-all duration-75"></div>
+              </div>
+            </div>
+
+            <!-- Right Channel Meter Bar -->
+            <div>
+              <div class="flex items-center justify-between text-[10px] text-gray-400 font-mono mb-1">
+                <span>R: Koor & Organ</span>
+                <span id="vu-r-text">-12.4 dB</span>
+              </div>
+              <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden p-0.5 flex">
+                <div id="vu-meter-r" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 to-red-500 w-[62%] transition-all duration-75"></div>
+              </div>
+            </div>
+
+            <!-- Scale Labels -->
+            <div class="flex justify-between text-[9px] font-mono text-gray-500 mt-2 px-1">
+              <span>-40dB</span>
+              <span>-24dB</span>
+              <span class="text-emerald-400 font-bold">-12dB (TARGET)</span>
+              <span>-6dB</span>
+              <span class="text-red-400 font-bold">0dB (PEAK)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emergency Quick Triage Card -->
+        <div class="p-5 rounded-2xl bg-red-50 border border-red-200 text-red-950">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-red-700 text-[20px]">emergency_home</span>
+            <h4 class="font-headline font-bold text-sm text-red-900">Mengalami Gangguan Mendadak?</h4>
+          </div>
+          <p class="text-xs text-red-900/90 leading-relaxed mb-3">
+            Jika audio mendengung kencang, gambar tiba-tiba blank hitam, atau koneksi YouTube putus di tengah misa:
+          </p>
+
+          <ol class="space-y-1.5 text-xs text-red-950 list-decimal list-inside mb-4">
+            <li><strong>Pindahkan segera</strong> ke Scene OBS: <em>Slide Logo + Teks Liturgi</em>.</li>
+            <li><strong>Mute channel Mic</strong> di ATEM Mini, lalu nyalakan kembali dalam hitungan 3 detik.</li>
+            <li><strong>Jika freeze total</strong>, tekan tombol restart router cadangan di bawah meja sakristi.</li>
+          </ol>
+
+          <button onclick="openHotlineModal()" class="w-full py-2.5 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">call</span>
+            <span>Hubungi PIC Teknis Paroki (Om Yanto)</span>
+          </button>
+        </div>
+
+        <!-- Prayer for Crew -->
+        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 text-xs italic text-on-surface-variant">
+          <p class="font-bold text-primary not-italic mb-1 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-secondary text-[16px]">church</span>
+            <span>Doa Singkat Kru Multimedia Sakristi</span>
+          </p>
+          "Tuhan Yesus, bimbinglah jemari dan pikiran kami. Semoga setiap tayangan dan suara yang kami hantarkan membantu umat di rumah merayakan kehadiran-Mu dengan khidmat dan damai. Amin."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 7: LATIHAN & KUIS ================= -->
+  <section id="view-latihan" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
+      <a href="#beranda" class="hover:text-primary">Beranda</a>
+      <span>&rsaquo;</span>
+      <span>Modul Latihan</span>
+      <span>&rsaquo;</span>
+      <span class="text-secondary font-semibold">Simulasi Rigging & Kuis Kilat</span>
+    </div>
+
+    <!-- Title & Badge -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+      <div>
+        <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-bold">Uji Mandiri Operator Muda â€¢ Bebas Risiko</span>
+        <h1 class="font-headline font-bold text-2xl sm:text-3xl text-primary tracking-tight mt-1">
+          Ruang Latihan Mandiri: Simulasi Kabel & Kuis Kilat
+        </h1>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-1 max-w-2xl">
+          Asah ketelitian dan refleksmu sebelum bertugas langsung di sakristi. Lakukan simulasi penyambungan kabel port dan jawab kuis liturgis untuk meraih lencana kesiapan siaran.
+        </p>
+      </div>
+
+      <!-- Graduation Badge Preview -->
+      <div class="p-3.5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm flex items-center gap-3 shrink-0 self-start lg:self-auto">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-on-surface-variant uppercase font-bold block">Lencana Kelulusan</span>
+          <span class="font-headline font-bold text-xs sm:text-sm text-primary block">Tingkat 1: Sakristi Siap Tugas</span>
+          <span class="text-[10px] text-emerald-700 font-semibold">&check; Syarat: Skor &ge; 80 Poin</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stepper Navigation Strip -->
+    <div class="grid grid-cols-3 gap-2 sm:gap-4 mb-8 text-center text-xs font-bold">
+      <button onclick="scrollToExercise('section-cables')" class="p-3 rounded-xl bg-primary text-white shadow-sm flex items-center justify-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-white/20 text-white text-[10px] flex items-center justify-center">1</span>
+        <span class="hidden sm:inline">1. Simulasi Colok Kabel</span>
+        <span class="sm:hidden">1. Kabel</span>
+      </button>
+
+      <button onclick="scrollToExercise('section-quiz')" class="p-3 rounded-xl bg-amber-100 text-amber-950 border border-amber-300 flex items-center justify-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-amber-200 text-amber-950 text-[10px] flex items-center justify-center">2</span>
+        <span class="hidden sm:inline">2. Kuis Kilat Liturgis (5 Soal)</span>
+        <span class="sm:hidden">2. Kuis</span>
+      </button>
+
+      <button onclick="scrollToExercise('section-result')" class="p-3 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-surface-container-highest text-on-surface text-[10px] flex items-center justify-center">3</span>
+        <span class="hidden sm:inline">3. Evaluasi & Sertifikat</span>
+        <span class="sm:hidden">3. Lencana</span>
+      </button>
+    </div>
+
+    <!-- PART 1: SIMULASI SAMBUNGAN KABEL -->
+    <div id="section-cables" class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-outline-variant/20 mb-6 gap-2">
+        <div>
+          <span class="text-[11px] font-bold text-secondary uppercase tracking-wider">Simulasi Interaktif Port Sakristi</span>
+          <h2 class="font-headline font-bold text-lg text-primary mt-0.5">Tantangan: Cocokkan Kabel Sakristi & Port Input</h2>
+          <p class="text-xs text-on-surface-variant">Klik salah satu kabel di bawah, lalu klik soket perangkat yang sesuai untuk memasangnya.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="cable-score-badge" class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
+            3 dari 4 Benar
+          </span>
+          <button onclick="resetCableSimulator()" class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-xs text-on-surface transition-colors" title="Ulangi Simulasi Kabel">
+            <span class="material-symbols-outlined text-[16px]">refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Selected Cable Notification -->
+      <div id="cable-instruction-bar" class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs font-semibold flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-700 text-[18px]">touch_app</span>
+          <span id="cable-instruction-text">Kabel Jack 3.5mm TRS terpilih. Silakan klik port yang tepat di bawah:</span>
+        </div>
+        <span class="text-[10px] font-mono text-amber-800 uppercase">SIAP DICOLOK</span>
+      </div>
+
+      <!-- Boks Kabel Audio-Visual Tersedia (5 Cards) -->
+      <div class="mb-6">
+        <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider block mb-2">BOKS KABEL TERSEDIA:</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <!-- Cable 1: XLR -->
+          <div onclick="pickCable('xlr')" class="cable-chip p-3 rounded-xl bg-purple-50/70 border-2 border-purple-300 text-left cursor-pointer transition-all hover:scale-105" data-cable="xlr">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#7C3AED]"></span>
+              <span class="text-[11px] font-bold text-purple-950">XLR Female</span>
+            </div>
+            <p class="text-[11px] text-purple-900 leading-tight">Mic Altar Utama</p>
+            <span class="text-[10px] font-bold text-emerald-700 block mt-2">&check; Terpasang</span>
+          </div>
+
+          <!-- Cable 2: 3.5mm TRS (ACTIVE) -->
+          <div id="chip-35" onclick="pickCable('35')" class="cable-chip p-3 rounded-xl bg-amber-50 border-2 border-amber-500 ring-2 ring-amber-400/50 text-left cursor-pointer transition-all hover:scale-105 shadow-sm" data-cable="35">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#F97316]"></span>
+              <span class="text-[11px] font-bold text-amber-950">Jack 3.5mm TRS</span>
+            </div>
+            <p class="text-[11px] text-amber-900 leading-tight">Output Sub-Mixer</p>
+            <span id="chip-35-status" class="text-[10px] font-bold text-amber-800 block mt-2">â— TERPILIH</span>
+          </div>
+
+          <!-- Cable 3: HDMI -->
+          <div onclick="pickCable('hdmi')" class="cable-chip p-3 rounded-xl bg-blue-50/70 border-2 border-blue-300 text-left cursor-pointer transition-all hover:scale-105" data-cable="hdmi">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
+              <span class="text-[11px] font-bold text-blue-950">HDMI High-Speed</span>
+            </div>
+            <p class="text-[11px] text-blue-900 leading-tight">Kamera PTZ Altar</p>
+            <span class="text-[10px] font-bold text-blue-800 block mt-2">Tersedia</span>
+          </div>
+
+          <!-- Cable 4: LAN RJ45 -->
+          <div onclick="pickCable('lan')" class="cable-chip p-3 rounded-xl bg-emerald-50/70 border-2 border-emerald-300 text-left cursor-pointer transition-all hover:scale-105" data-cable="lan">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#16A34A]"></span>
+              <span class="text-[11px] font-bold text-emerald-950">LAN RJ45 Cat6</span>
+            </div>
+            <p class="text-[11px] text-emerald-900 leading-tight">Router & Switch OBS</p>
+            <span class="text-[10px] font-bold text-emerald-700 block mt-2">&check; Terpasang</span>
+          </div>
+
+          <!-- Cable 5: Akai TS -->
+          <div onclick="pickCable('akai')" class="cable-chip p-3 rounded-xl bg-surface-container border-2 border-outline-variant/30 text-left cursor-pointer transition-all hover:scale-105" data-cable="akai">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+              <span class="text-[11px] font-bold text-on-surface">Jack Akai 6.35mm</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant leading-tight">Cadangan Koor</p>
+            <span class="text-[10px] text-outline block mt-2">Cadangan</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sockets on Devices Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Device 1: Soundcraft Sub-Mixer -->
+        <div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-headline font-bold text-xs text-primary flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px]">equalizer</span>
+              <span>Soundcraft Sub-Mixer Sakristi</span>
+            </span>
+            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Power: ON</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Port 1: Mic In -->
+            <div class="p-3 rounded-lg bg-surface-container border border-outline-variant/20 text-xs">
+              <span class="text-[10px] font-bold text-on-surface-variant block uppercase">PORT 01: MIC 1 IN</span>
+              <span class="text-xs font-bold text-purple-900 block mt-1">&check; XLR Female (Altar)</span>
+              <p class="text-[10px] text-emerald-700 mt-1">Sinyal imam aman & jernih.</p>
+            </div>
+
+            <!-- Port 2: Phones / Aux Out -->
+            <div id="port-phones" onclick="plugCableIntoPort('phones')" class="p-3 rounded-lg bg-white border-2 border-dashed border-amber-400 hover:bg-amber-50 cursor-pointer text-xs transition-colors">
+              <span class="text-[10px] font-bold text-amber-800 block uppercase">PORT 02: PHONES / OUT</span>
+              <span id="port-phones-text" class="text-xs font-bold text-amber-950 block mt-1">&rarr; Colokan Output Stereo</span>
+              <p class="text-[10px] text-amber-900 mt-1">Klik untuk sambungkan Jack 3.5mm</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Device 2: Blackmagic ATEM Mini -->
+        <div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-headline font-bold text-xs text-primary flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px]">developer_board</span>
+              <span>Blackmagic ATEM Mini Switcher</span>
+            </span>
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">USB PGM: LIVE</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <!-- Port Audio Mic 1 In (TARGET!) -->
+            <div id="port-atem-mic1" onclick="plugCableIntoPort('atem-mic1')" class="p-3 rounded-lg bg-white border-2 border-dashed border-amber-500 hover:bg-amber-100 cursor-pointer text-xs transition-colors ring-2 ring-amber-400/50">
+              <span class="text-[10px] font-bold text-amber-900 block uppercase">PORT: AUDIO MIC 1 IN</span>
+              <span id="port-atem-mic1-text" class="text-xs font-bold text-amber-950 block mt-1">&darr; KLIK DI SINI (Colok 3.5mm)</span>
+              <p class="text-[10px] text-amber-900 mt-1">Input suara audio mixer ke OBS</p>
+            </div>
+
+            <!-- Port Cam 1 HDMI In -->
+            <div onclick="plugCableIntoPort('atem-cam1')" class="p-3 rounded-lg bg-surface-container border border-outline-variant/20 text-xs cursor-pointer hover:bg-surface-container-high transition-colors">
+              <span class="text-[10px] font-bold text-on-surface-variant block uppercase">PORT: CAM 1 (HDMI IN)</span>
+              <span class="text-xs font-bold text-blue-900 block mt-1">HDMI 1080p In</span>
+              <p class="text-[10px] text-on-surface-variant mt-1">Colokkan HDMI Kamera Altar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PART 2: KUIS KILAT SIAGA SIARAN (5 SOAL INTERAKTIF) -->
+    <div id="section-quiz" class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-outline-variant/20 mb-6 gap-2">
+        <div>
+          <span class="text-[11px] font-bold text-secondary uppercase tracking-wider">Modul Liturgi & Kamera â€¢ Uji Refleks Operator Misa</span>
+          <h2 id="quiz-question-title" class="font-headline font-bold text-lg text-primary mt-0.5">Kuis Kilat Siaga Siaran â€¢ Pertanyaan 3 dari 5</h2>
+        </div>
+
+        <!-- Question stepper bubbles -->
+        <div class="flex items-center gap-1.5" id="quiz-bubbles">
+          <button onclick="gotoQuiz(1)" class="w-7 h-7 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">&check;</button>
+          <button onclick="gotoQuiz(2)" class="w-7 h-7 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">&check;</button>
+          <button onclick="gotoQuiz(3)" class="w-7 h-7 rounded-full bg-amber-400 text-amber-950 font-bold text-xs flex items-center justify-center ring-2 ring-amber-500">3</button>
+          <button onclick="gotoQuiz(4)" class="w-7 h-7 rounded-full bg-surface-container text-on-surface font-bold text-xs flex items-center justify-center">4</button>
+          <button onclick="gotoQuiz(5)" class="w-7 h-7 rounded-full bg-surface-container text-on-surface font-bold text-xs flex items-center justify-center">5</button>
+        </div>
+      </div>
+
+      <!-- Question Content Container -->
+      <div class="mb-6">
+        <span class="text-xs font-bold text-secondary uppercase tracking-wider block mb-2" id="quiz-category">KATEGORI: ETIKA & KONTROL KAMERA LITURGI</span>
+        
+        <h3 id="quiz-question-text" class="font-headline font-bold text-base sm:text-lg text-primary leading-snug mb-5">
+          Saat imam sedang mengangkat Hosti Suci dan Piala anggur dalam Doa Syukur Agung (saat Konsekrasi), apa tindakan yang HARUS dilakukan operator kamera PTZ?
+        </h3>
+
+        <!-- Options List -->
+        <div class="space-y-3" id="quiz-options-box">
+          <button onclick="answerQuiz('A')" class="quiz-opt w-full p-4 rounded-xl text-left bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs sm:text-sm transition-all flex items-start gap-3" data-opt="A">
+            <span class="w-6 h-6 rounded-lg bg-surface-container font-bold text-xs text-primary flex items-center justify-center shrink-0">A</span>
+            <span>Menggerakkan joystick cepat untuk memperbesar piala (zoom-in ekstrim) agar siaran terasa lebih sinematik.</span>
+          </button>
+
+          <button onclick="answerQuiz('B')" class="quiz-opt w-full p-4 rounded-xl text-left bg-emerald-50 border-2 border-emerald-500 text-emerald-950 text-xs sm:text-sm font-semibold transition-all flex items-start justify-between gap-3 shadow-sm" data-opt="B">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0">&check;</span>
+              <span>Menahan posisi kamera tetap hening dan tenang (framing panti imam khidmat) tanpa gerakan mendadak.</span>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-600 text-white shrink-0">PILIHAN TEPAT</span>
+          </button>
+
+          <button onclick="answerQuiz('C')" class="quiz-opt w-full p-4 rounded-xl text-left bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs sm:text-sm transition-all flex items-start gap-3" data-opt="C">
+            <span class="w-6 h-6 rounded-lg bg-surface-container font-bold text-xs text-primary flex items-center justify-center shrink-0">C</span>
+            <span>Memindahkan cut gambar ke kamera sudut lebar umat yang sedang menunduk dan berlutut menyembah.</span>
+          </button>
+
+          <button onclick="answerQuiz('D')" class="quiz-opt w-full p-4 rounded-xl text-left bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs sm:text-sm transition-all flex items-start gap-3" data-opt="D">
+            <span class="w-6 h-6 rounded-lg bg-surface-container font-bold text-xs text-primary flex items-center justify-center shrink-0">D</span>
+            <span>Mematikan sementara stream YouTube sakristi demi menghemat bandwidth internet paroki.</span>
+          </button>
+        </div>
+
+        <!-- Explanation Card (Visible upon answer) -->
+        <div id="quiz-explanation-box" class="mt-5 p-4 rounded-xl bg-emerald-50/90 border border-emerald-300 text-xs text-emerald-950">
+          <div class="flex items-center gap-1.5 font-bold mb-1">
+            <span class="material-symbols-outlined text-emerald-700 text-[18px]">verified</span>
+            <span id="quiz-feedback-title">Penjelasan Liturgis Tepat! (+20 Poin Kesiapan)</span>
+          </div>
+          <p id="quiz-feedback-text" class="leading-relaxed">
+            Konsekrasi adalah puncak misteri Ekaristi Kudus. Umat beriman yang mengikuti misa dari rumah membutuhkan ketenangan kontemplatif untuk bersembah sujud bersama imam. Pergerakan kamera PTZ yang berguncang, zoom yang terlalu cepat, atau pergantian angle yang mendadak dapat memecah keheningan sakral dan mengaburkan fokus adorasi umat kepada Tubuh dan Darah Kristus.
+          </p>
+          <span class="inline-block mt-2 text-[10px] text-emerald-800 font-medium">
+            Rujukan: Pedoman Umum Misale Romawi (PUMR) Bab IV Tata Perayaan Ekaristi
+          </span>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+        <button onclick="prevQuiz()" class="px-4 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center gap-1 transition-colors">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+          <span>Pertanyaan Sebelumnya</span>
+        </button>
+
+        <button onclick="nextQuiz()" id="next-quiz-btn" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-white font-semibold text-xs flex items-center gap-1.5 transition-colors shadow-sm">
+          <span>Lanjut ke Pertanyaan 4</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PART 3: HASIL EVALUASI & LENCANA LISENSI -->
+    <div id="section-result" class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+      <div class="mb-6">
+        <span class="text-[11px] font-bold text-secondary uppercase tracking-wider">Hasil Evaluasi & Lencana Kelayakan Siaran</span>
+        <h2 class="font-headline font-bold text-lg text-primary mt-0.5">Rangkuman Capaian Mandiri Kru Liturgis</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <!-- Score Dial -->
+        <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex flex-col items-center justify-center text-center">
+          <span class="text-xs font-bold text-on-surface-variant uppercase mb-4">Skor Akumulasi Latihan</span>
+
+          <!-- Circular Score -->
+          <div class="relative w-32 h-32 flex items-center justify-center mb-3">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
+              <path class="text-amber-500 stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="92, 100" stroke-linecap="round" stroke-width="3.5"></path>
+            </svg>
+            <div class="absolute flex flex-col items-center">
+              <span id="final-score-text" class="font-headline font-extrabold text-3xl text-primary">92</span>
+              <span class="text-[10px] text-on-surface-variant font-bold uppercase">DARI 100 POIN</span>
+            </div>
+          </div>
+
+          <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
+            &bull; Predikat: Sangat Memuaskan
+          </span>
+          <span class="text-[11px] text-on-surface-variant mt-2">Kabel: 95% Tepat â€¢ Etika Liturgi: 90% Benar</span>
+        </div>
+
+        <!-- Official License Card -->
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-[#031c38] to-[#0a3563] text-white shadow-lg border border-blue-400/30 flex flex-col justify-between text-center relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-amber-400/10 blur-xl pointer-events-none"></div>
+
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-blue-200 pb-2 border-b border-blue-400/20 mb-4">
+              <span>LENCANA LISENSI RESMI</span>
+              <span>ID: KMS-2025-089</span>
+            </div>
+
+            <div class="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400 text-amber-300 flex items-center justify-center mx-auto mb-3 shadow-inner">
+              <span class="material-symbols-outlined text-[32px]">verified</span>
+            </div>
+
+            <h3 class="font-headline font-bold text-base text-white">OPERATOR SIAP TUGAS MISA</h3>
+            <p class="text-[11px] text-blue-100 mt-1">Diberikan kepada relawan yang lulus verifikasi rigging audio-visual & sopan santun liturgis altar.</p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-blue-400/20 flex items-center justify-between text-[10px] text-blue-200">
+            <span>Diverifikasi oleh Tim AV Paroki</span>
+            <span class="font-bold text-amber-300">Berlaku s/d Misa Paskah 2026</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex flex-col justify-between">
+          <div>
+            <span class="font-bold text-xs text-primary flex items-center gap-1.5 mb-2">
+              <span class="material-symbols-outlined text-emerald-600 text-[18px]">thumb_up</span>
+              <span>Kesiapan Rohani & Teknis</span>
+            </span>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Selamat, Sahabat Komsos! Kamu telah menguasai skema kabel dasar dan etika penyiaran misa. Kamu dinyatakan <strong>Siap Dampingi Siaran Langsung Minggu Ini</strong> bersama koordinator senior.
+            </p>
+          </div>
+
+          <div class="space-y-2 mt-4">
+            <button onclick="openCertificateModal()" class="w-full py-2.5 rounded-xl bg-primary hover:bg-primary-container text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">file_download</span>
+              <span>Unduh Sertifikat Saku (PDF)</span>
+            </button>
+            <button onclick="resetAllExercises()" class="w-full py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-semibold text-xs flex items-center justify-center gap-2 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">refresh</span>
+              <span>Ulangi Latihan</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 8: BANTUAN & TROUBLESHOOTING ================= -->
+  <section id="view-bantuan" class="app-view w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 lg:pt-40 pb-20">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-on-surface-variant mb-3">
+      <a href="#beranda" class="hover:text-primary">Beranda</a>
+      <span>&rsaquo;</span>
+      <span class="text-secondary font-semibold">Pusat Bantuan & Mitigasi Cepat</span>
+    </div>
+
+    <!-- Header Emergency Banner -->
+    <div class="relative w-full rounded-2xl overflow-hidden bg-[#0d2137] text-white p-6 sm:p-8 shadow-xl mb-6 border border-blue-800/40">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-red-500 text-white font-bold text-[11px] uppercase tracking-wider flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              Mode Tanggap Darurat â€¢ Siaran Misa
+            </span>
+            <span class="text-xs text-blue-200">Respon Cepat Target &lt; 30 Detik</span>
+          </div>
+
+          <h1 class="font-headline font-bold text-2xl sm:text-3xl text-white tracking-tight flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-[28px]">bolt</span>
+            <span>Pusat Bantuan & Troubleshooting Cepat</span>
+          </h1>
+
+          <p class="text-xs sm:text-sm text-blue-100/90 mt-1 max-w-2xl leading-relaxed">
+            Jangan panik, kamu bisa mengatasinya! Pilih kendala yang kamu hadapi di bawah ini untuk solusi kilat dalam 30 detik tanpa mengganggu jalannya perayaan Ekaristi.
+          </p>
+        </div>
+
+        <button onclick="openHotlineModal()" class="px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-xs flex items-center gap-2 shadow-lg transition-all self-start lg:self-auto hover:-translate-y-0.5">
+          <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+          <span>Panggil Pendamping Teknis (HT Channel 3)</span>
+        </button>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="mt-6 pt-5 border-t border-blue-900/60">
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <div class="relative flex-1 w-full">
+            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-300 text-[20px]">search</span>
+            <input id="help-search-input" oninput="filterHelpIssues(this.value)" type="text"
+              placeholder="Ketik kendala kamu di sini (misal: audio dengung, layar hitam, obs patah-patah)..."
+              class="w-full pl-11 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl text-xs sm:text-sm text-white placeholder:text-blue-200/60 focus:outline-none focus:bg-white/15 focus:border-amber-400"/>
+          </div>
+          <button onclick="resetHelpFilter()" class="px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-blue-100 transition-colors whitespace-nowrap">
+            Reset Filter
+          </button>
+        </div>
+
+        <!-- Quick Access Pills -->
+        <div class="flex items-center gap-2 flex-wrap mt-3 text-xs" id="help-pill-group">
+          <span class="text-[11px] text-blue-200 font-bold mr-1">Akses Kilat:</span>
+          <button onclick="filterHelpTag('suara')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— Suara Hilang / Dengung
+          </button>
+          <button onclick="filterHelpTag('video')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— Video Freeze / Hitam
+          </button>
+          <button onclick="filterHelpTag('internet')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— Internet Lemot / Bitrate Merah
+          </button>
+          <button onclick="filterHelpTag('teks')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— Teks Lagu Tidak Muncul
+          </button>
+          <button onclick="filterHelpTag('ptz')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— Kamera PTZ Macet
+          </button>
+          <button onclick="filterHelpTag('tv')" class="help-filter-btn px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-blue-100 text-[11px] font-semibold transition-colors">
+            â— TV Layar Umat Gelap
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Troubleshooting Content: Left Solutions List (7 cols) + Right Contacts (5 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left: 7 Solution Cards -->
+      <div class="lg:col-span-8 space-y-5" id="help-cards-list">
+        <!-- KASUS 01: Layar Hitam di OBS -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="video">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-xs shrink-0">01</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">VISUAL & KAMERA â€¢ KABEL HDMI / SDI</span>
+                <h3 class="font-headline font-bold text-base text-primary">Layar Video Hitam / "No Signal" di OBS Studio</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~25s</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs mb-4">
+            <strong>Diagnosa Singkat:</strong> Kamera mati otomatis (auto power-off), kabel HDMI kendor pada switcher port, atau resolusi switcher belum tersinkronisasi dengan kanvas OBS.
+          </div>
+
+          <div class="space-y-2.5 text-xs mb-4">
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <strong>Cek Lampu Tally & Port Input Switcher:</strong>
+                <p class="text-on-surface-variant mt-0.5">Lihat tombol nomor input kamera di switcher (misal: CAM 1). Bila lampu berkedip oranye atau mati, sinyal HDMI fisik dari tripod belum masuk.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <strong>Cabut dan Pasang Kembali Kabel HDMI Biru:</strong>
+                <p class="text-on-surface-variant mt-0.5">Genggam ujung konektor HDMI biru dengan mantap, tarik perlahan, lalu tancapkan kembali hingga berbunyi 'klik' lembut tanpa memelintir kabel.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <strong>Reset Perangkat Video Capture di OBS:</strong>
+                <p class="text-on-surface-variant mt-0.5">Di panel <em>Sources</em> OBS, klik kanan nama Capture Card &gt; pilih <em>Deactivate</em> &gt; tunggu 2 detik &gt; klik <em>Activate</em> kembali.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-start gap-2 mb-4">
+            <span class="material-symbols-outlined text-amber-700 text-[18px] shrink-0">warning</span>
+            <span><strong>Awas! Hindari Gerakan Kasar:</strong> Jangan pernah menggoyang kabel di area dekat altar saat konsekrasi atau homili. Periksa konektor di bawah tripod dengan tenang dan posisi berlutut agar tidak menghalangi umat.</span>
+          </div>
+
+          <label class="flex items-center gap-2 text-xs font-semibold text-primary cursor-pointer pt-2 border-t border-outline-variant/20">
+            <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+            <span>Saya sudah mencoba 3 langkah ini</span>
+          </label>
+        </div>
+
+        <!-- KASUS 02: Suara Dengung Keras (Ground Hum) -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="suara">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold text-xs shrink-0">02</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">TATA SUARA & AUDIO â€¢ JACK 3.5MM / XLR</span>
+                <h3 class="font-headline font-bold text-base text-primary">Ada Suara Dengung Keras (Ground Hum 50Hz) di Livestream</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~30s</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs mb-4">
+            <strong>Diagnosa Singkat:</strong> Terjadi perbedaan potensial ground listrik (ground loop) antara adaptor charger laptop livestream dan sistem mixer audio utama gedung gereja.
+          </div>
+
+          <div class="space-y-2.5 text-xs mb-4">
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <strong>Tes Cabut Adaptor Charger Laptop (5 Detik):</strong>
+                <p class="text-on-surface-variant mt-0.5">Lepas kabel daya laptop kamu seketika. Jika suara dengung langsung hilang di headphone monitoring, sumber masalahnya murni adalah ground adaptor listrik laptop.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <strong>Tekan Tombol "GND LIFT" pada DI-Box:</strong>
+                <p class="text-on-surface-variant mt-0.5">Gunakan Direct Injection Box (DI Box) di antara mixer dan soundcard kamu. Pindahkan sakelar kecil dari posisi GND ke LIFT untuk memutus arus induksi liar.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <strong>Pisahkan Kabel Audio dari Stopkontak AC:</strong>
+                <p class="text-on-surface-variant mt-0.5">Jangan biarkan kabel audio oranye/ungu melilit sejajar dengan kabel rol listrik penerangan. Beri jarak minimal 20 cm atau buat persilangan tegak lurus (90 derajat).</p>
+              </div>
+            </div>
+          </div>
+
+          <label class="flex items-center gap-2 text-xs font-semibold text-primary cursor-pointer pt-2 border-t border-outline-variant/20">
+            <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+            <span>Audio terdengar jernih kembali di headphone</span>
+          </label>
+        </div>
+
+        <!-- KASUS 03: Bitrate OBS Merah / Dropped Frames -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="internet">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">03</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">JARINGAN & BITRATE â€¢ KABEL LAN RJ45</span>
+                <h3 class="font-headline font-bold text-base text-primary">Bitrate OBS Berubah Merah / Dropped Frames</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~20s</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-surface-container-low text-xs mb-4">
+            <strong>Solusi Darurat Penyelamat Siaran:</strong>
+          </div>
+
+          <div class="space-y-2.5 text-xs mb-4">
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <strong>Turunkan Bitrate Video ke 2500 - 3000 kbps:</strong>
+                <p class="text-on-surface-variant mt-0.5">Buka Settings &gt; Output &gt; Streaming. Ubah Video Bitrate dari 5000 kbps menjadi 2800 kbps. Umat lebih membutuhkan audio misa yang stabil daripada resolusi tinggi namun macet.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <strong>Beralih Wajib ke Kabel LAN Fisik (Bukan Wi-Fi):</strong>
+                <p class="text-on-surface-variant mt-0.5">Matikan tombol Wi-Fi laptop. Tancapkan kabel LAN Hijau langsung ke router khusus Komsos. Wi-Fi gereja akan menurun drastis kecepatannya saat umat mulai hadir dan membuka ponsel.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <strong>Tutup Aplikasi Berat di Balik Layar:</strong>
+                <p class="text-on-surface-variant mt-0.5">Tutup browser dengan banyak tab, aplikasi WhatsApp Desktop, cloud backup (Google Drive/OneDrive), dan software editor grafis untuk meringankan beban encoder CPU.</p>
+              </div>
+            </div>
+          </div>
+
+          <label class="flex items-center gap-2 text-xs font-semibold text-primary cursor-pointer pt-2 border-t border-outline-variant/20">
+            <input type="checkbox" class="w-4 h-4 rounded text-primary"/>
+            <span>Indikator bitrate OBS kembali berwarna hijau</span>
+          </label>
+        </div>
+
+        <!-- KASUS 04: Suara Tidak Keluar Sama Sekali -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="suara">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs shrink-0">04</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">AUDIO â€¢ JALUR MASTER MUTE</span>
+                <h3 class="font-headline font-bold text-base text-primary">Suara Tidak Keluar (Hening di YouTube / Meja Siar)</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~15s</span>
+          </div>
+
+          <div class="space-y-2 text-xs mb-3">
+            <p>1. Cek tombol <strong>ON / MUTE</strong> di channel Mic 1 ATEM Mini (lampu merah = aktif, mati = mute).</p>
+            <p>2. Cek fader AUX SEND 3 di mixer audio utama gedung (pastikan dinaikkan ke level 0dB).</p>
+            <p>3. Di OBS Studio, pastikan source Audio Input Capture tidak dalam keadaan speaker dicoret merah.</p>
+          </div>
+        </div>
+
+        <!-- KASUS 05: Teks Lagu NDI Blank -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="teks">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs shrink-0">05</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">NDI & PRESENTASI â€¢ TEKS LITURGI</span>
+                <h3 class="font-headline font-bold text-base text-primary">Teks Misa Tidak Muncul (NDI Slide Lirik & Bacaan Blank)</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~30s</span>
+          </div>
+
+          <div class="space-y-2 text-xs mb-3">
+            <p>1. Pastikan laptop operator teks lirik terhubung ke switch LAN yang sama dengan laptop OBS.</p>
+            <p>2. Di software presentasi lirik, nyalakan output NDI (NDI Broadcaster ON).</p>
+            <p>3. Di OBS Studio, klik ganda source NDI &gt; pilih kembali Source Name dari daftar dropdown.</p>
+          </div>
+        </div>
+
+        <!-- KASUS 06: PTZ Macet -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="ptz">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs shrink-0">06</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">KAMERA PTZ â€¢ KONTROL REMOTE</span>
+                <h3 class="font-headline font-bold text-base text-primary">Kamera PTZ Tidak Bergerak (Joystick iVMS Tidak Respons)</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~25s</span>
+          </div>
+
+          <div class="space-y-2 text-xs mb-3">
+            <p>1. Periksa kabel LAN PoE pada kamera PTZ. Lampu indikator ethernet di samping port harus berkedip oranye-hijau.</p>
+            <p>2. Di software iVMS-4200, pastikan Device State terhubung (Online) dan IP kamera tidak bentrok.</p>
+            <p>3. Gunakan remote control infra-merah fisik cadangan jika kontrol software mengalami freeze.</p>
+          </div>
+        </div>
+
+        <!-- KASUS 07: TV Sayap Gelap -->
+        <div class="help-card p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm" data-category="tv">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs shrink-0">07</span>
+              <div>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase">DISPLAY GEDUNG â€¢ SPLITTER HDMI</span>
+                <h3 class="font-headline font-bold text-base text-primary">TV Tidak Menampilkan Gambar (Layar Umat di Gedung Gelap)</h3>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-outline shrink-0">Estimasi: ~20s</span>
+          </div>
+
+          <div class="space-y-2 text-xs mb-3">
+            <p>1. Periksa adaptor daya listrik Splitter HDMI 1x4 di bawah meja sakristi (lampu power merah harus menyala).</p>
+            <p>2. Cek Receiver HDMI Extender di dekat TV: lampu Link (Cat6) harus menyala solid.</p>
+            <p>3. Pastikan input TV pada remote disetel ke HDMI 1.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Contacts & Liturgical Reflection (4 cols) -->
+      <div class="lg:col-span-4 space-y-5">
+        <!-- Spiritual Reflection -->
+        <div class="p-5 rounded-2xl bg-[#032448] text-white shadow-md">
+          <span class="text-xs font-bold uppercase text-amber-400 block mb-2">Renungan Pelayanan</span>
+          <p class="text-xs text-blue-100 italic leading-relaxed">
+            "Ingat prinsip Komsos: Ketepatan teknis memang penting, namun ketenangan batin dalam melayani altar jauh lebih utama. Umat ikut berdoa melalui ketenanganmu di meja siaran."
+          </p>
+          <div class="mt-4 pt-3 border-t border-blue-400/20 flex items-center justify-between text-[11px] text-blue-200">
+            <span>St. Fransiskus de Sales</span>
+            <span class="text-amber-300 font-medium">Pelindung Komsos</span>
+          </div>
+        </div>
+
+        <!-- Parish Support Contacts -->
+        <div class="p-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20 mb-4">
+            <h3 class="font-headline font-bold text-sm text-primary flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-primary">support_agent</span>
+              <span>Kontak Bantuan Paroki</span>
+            </h3>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          </div>
+
+          <p class="text-xs text-on-surface-variant mb-4">Jika masalah belum teratasi dalam 1 menit, segera hubungi pendamping teknis yang bertugas hari ini:</p>
+
+          <div class="space-y-3">
+            <!-- Contact 1 -->
+            <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">Y</div>
+                <div>
+                  <h4 class="font-bold text-xs text-primary">Om Yanto</h4>
+                  <p class="text-[10px] text-on-surface-variant">Koordinator Audio Sound Gedung</p>
+                  <a href="tel:081234567890" class="text-[11px] text-primary font-bold hover:underline">0812-3456-7890</a>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 shrink-0">Balkon Sakristi</span>
+            </div>
+
+            <!-- Contact 2 -->
+            <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs">M</div>
+                <div>
+                  <h4 class="font-bold text-xs text-primary">Kak Maria</h4>
+                  <p class="text-[10px] text-on-surface-variant">Mentor Streaming & OBS</p>
+                  <a href="tel:081198765432" class="text-[11px] text-primary font-bold hover:underline">0811-9876-5432</a>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-900 shrink-0">Meja Kontrol</span>
+            </div>
+
+            <!-- Contact 3 -->
+            <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs">
+                  <span class="material-symbols-outlined text-[18px]">church</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs text-primary">Romo Moderator</h4>
+                  <p class="text-[10px] text-on-surface-variant">Pendamping Pastoral Komsos</p>
+                  <span class="text-[11px] text-secondary font-bold">Interkom Pastoran #2</span>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container text-on-surface shrink-0">Pastoran</span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-outline-variant/20 text-center">
+            <button onclick="openHotlineModal()" class="w-full py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">phone</span>
+              <span>Buka Dialog Hotline Lengkap</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORT INSPECTOR MODAL (ATEM MINI) ================= -->
+  <div id="atem-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-2xl w-full border border-outline-variant/30 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="p-5 bg-primary text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="material-symbols-outlined text-amber-400 text-[24px]">developer_board</span>
+          <div>
+            <h3 class="font-headline font-bold text-base">Port Inspector: Blackmagic ATEM Mini</h3>
+            <p class="text-[11px] text-blue-200">Panduan titik colokan belakang video switcher sakristi</p>
+          </div>
+        </div>
+        <button onclick="closeAtemModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-5 text-xs">
+        <!-- Rear Connectors Visual Schematic -->
+        <div class="p-4 rounded-xl bg-[#071d33] text-white border border-blue-800/40">
+          <div class="text-[10px] font-mono text-blue-300 uppercase tracking-wider mb-3 text-center font-bold">
+            SKEMA SISI BELAKANG ATEM MINI (KLIK SALAH SATU PORT)
+          </div>
+
+          <div class="grid grid-cols-4 sm:grid-cols-7 gap-2 text-center text-[10px]">
+            <button onclick="inspectPort('power')" class="port-pin p-2 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 border border-white/10">
+              12V DC
+            </button>
+            <button onclick="inspectPort('lan')" class="port-pin p-2 rounded bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-600">
+              LAN ETH
+            </button>
+            <button onclick="inspectPort('usb')" class="port-pin p-2 rounded bg-amber-950 hover:bg-amber-900 text-amber-300 border border-amber-600">
+              USB OUT
+            </button>
+            <button onclick="inspectPort('hdmi-out')" class="port-pin p-2 rounded bg-blue-950 hover:bg-blue-900 text-blue-300 border border-blue-600">
+              HDMI OUT
+            </button>
+            <button onclick="inspectPort('cam1')" class="port-pin p-2 rounded bg-blue-950 hover:bg-blue-900 text-blue-300 border border-blue-600 font-bold">
+              CAM 1
+            </button>
+            <button onclick="inspectPort('cam2')" class="port-pin p-2 rounded bg-blue-950 hover:bg-blue-900 text-blue-300 border border-blue-600">
+              CAM 2-4
+            </button>
+            <button onclick="inspectPort('mic1')" class="port-pin p-2 rounded bg-amber-500 text-black font-extrabold ring-2 ring-amber-300 animate-pulse">
+              MIC 1 IN
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Port Detail Container -->
+        <div id="port-inspect-detail" class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 id="inspect-port-name" class="font-headline font-bold text-sm text-primary">PORT: MIC 1 (Audio 3.5mm Stereo TRS)</h4>
+            <span id="inspect-port-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">Audio Line In</span>
+          </div>
+          <p id="inspect-port-desc" class="text-on-surface-variant leading-relaxed">
+            Menerima sinyal audio stereo bersih hasil mixing dari Sub-Mixer meja Komsos atau Mixer Gedung. Sinyal ini disatukan bersama paket data video kamera untuk dikirimkan serentak ke laptop OBS.
+          </p>
+          <div class="pt-2 border-t border-outline-variant/20 flex items-center justify-between text-[11px]">
+            <span class="font-bold text-primary">Standar Kabel:</span>
+            <span id="inspect-port-cable" class="text-amber-800 font-semibold">Jack 3.5mm TRS (2 Cincin Hitam)</span>
+          </div>
+        </div>
+
+        <!-- Warning Box -->
+        <div class="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-950 flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-red-700 text-[20px] shrink-0">warning</span>
+          <div>
+            <strong>Awas! Jangan Pernah Cabut Kabel Video Saat Siaran Sedang LIVE:</strong>
+            <p class="mt-0.5 text-red-900/90 leading-relaxed">
+              Mencabut kabel HDMI saat switcher aktif dapat menyebabkan chipset ATEM restart mendadak dan layar livestream berubah hitam selama 15-30 detik.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 bg-surface-container-low border-t border-outline-variant/20 flex justify-end">
+        <button onclick="closeAtemModal()" class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-container transition-colors">
+          Tutup Panduan Port
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= UNIVERSAL SEARCH MODAL (Ctrl+K) ================= -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-start justify-center pt-20 px-4">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-xl w-full border border-outline-variant/30 shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-4 border-b border-outline-variant/20 flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-[22px]">search</span>
+        <input id="global-search-input" oninput="runGlobalSearch(this.value)" type="text"
+          placeholder="Cari SOP, alat tempur, kabel, kendala audio... (misal: 'dengung', 'obs', 'atem')"
+          class="flex-1 bg-transparent border-0 text-sm text-on-surface placeholder:text-outline focus:outline-none"/>
+        <kbd class="text-[10px] font-bold text-outline px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/40">ESC</kbd>
+      </div>
+
+      <div id="global-search-results" class="p-3 max-h-80 overflow-y-auto space-y-1 text-xs">
+        <p class="p-3 text-center text-outline text-xs">Ketik kata kunci untuk mencari seluruh modul, SOP, dan solusi darurat...</p>
+      </div>
+
+      <div class="p-3 bg-surface-container-low border-t border-outline-variant/20 text-[11px] text-on-surface-variant flex items-center justify-between">
+        <span>Gunakan tombol panah & enter untuk memilih</span>
+        <span>Komsos Live Academy Search</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CERTIFICATE OF COMPETENCE MODAL ================= -->
+  <div id="cert-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-2xl w-full border border-outline-variant/30 shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-4 bg-primary text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-400 text-[22px]">workspace_premium</span>
+          <span class="font-headline font-bold text-sm">Sertifikat Kelayakan Siaran Sakristi</span>
+        </div>
+        <button onclick="closeCertModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      </div>
+
+      <!-- Printable Certificate Area -->
+      <div class="p-8 text-center bg-[#fbf9f5] border-8 border-double border-amber-600/30 m-4 rounded-xl relative overflow-hidden" id="printable-certificate">
+        <div class="w-12 h-12 rounded-full bg-amber-100 border-2 border-amber-500 text-amber-800 flex items-center justify-center mx-auto mb-3">
+          <span class="material-symbols-outlined text-[28px]">church</span>
+        </div>
+        <span class="text-[11px] font-bold tracking-widest uppercase text-amber-800">KOMISI KOMUNIKASI SOSIAL â€¢ PAROKI MARIA BUNDA</span>
+        <h2 class="font-headline font-bold text-xl sm:text-2xl text-primary mt-1 mb-2">SERTIFIKAT KELAYAKAN SIARAN LITURGIS</h2>
+        <p class="text-xs text-on-surface-variant max-w-md mx-auto mb-4">
+          Dengan ini menyatakan bahwa relawan muda:
+        </p>
+        <div class="text-lg sm:text-xl font-headline font-bold text-secondary border-b-2 border-amber-400/60 pb-1 max-w-xs mx-auto mb-3">
+          Sahabat Komsos Siap Tugas
+        </div>
+        <p class="text-xs text-on-surface-variant max-w-md mx-auto leading-relaxed mb-6">
+          Telah berhasil menyelesaikan pelatihan mandiri <strong>6 Modul Standar Operasional Prosedur (SOP) AV Sakristi</strong> dan dinyatakan kompeten melayani di meja broadcast siaran perayaan ekaristi kudus.
+        </p>
+
+        <div class="flex items-center justify-between text-xs text-on-surface border-t border-amber-300 pt-4 max-w-lg mx-auto">
+          <div class="text-left">
+            <span class="text-[10px] text-on-surface-variant block">Nomor Lisensi:</span>
+            <span class="font-mono font-bold text-primary">KMS-2025-089-PRK</span>
+          </div>
+          <div class="text-center">
+            <span class="px-3 py-1 rounded-full bg-amber-200 text-amber-950 font-bold text-[10px] uppercase">
+              Predikat: Sangat Memuaskan (92/100)
+            </span>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] text-on-surface-variant block">Tanggal Lulus:</span>
+            <span class="font-bold text-primary">Oktober 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-surface-container-low border-t border-outline-variant/20 flex items-center justify-between">
+        <span class="text-xs text-on-surface-variant">Dapat dicetak untuk tanda pengenal sakristi</span>
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-container flex items-center gap-1.5 shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">print</span>
+            <span>Cetak Sertifikat</span>
+          </button>
+          <button onclick="closeCertModal()" class="px-3 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= EMERGENCY HOTLINE MODAL ================= -->
+  <div id="hotline-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-2xl max-w-md w-full border border-outline-variant/30 shadow-2xl overflow-hidden flex flex-col">
+      <div class="p-4 bg-red-700 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-white text-[22px]">emergency</span>
+          <span class="font-headline font-bold text-sm">Hotline & Kontak Bantuan Darurat</span>
+        </div>
+        <button onclick="closeHotlineModal()" class="w-7 h-7 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-4 text-xs">
+        <p class="text-on-surface-variant">Hubungi pendamping teknis bila terjadi kendala audio atau video yang tidak tertangani dalam 1 menit:</p>
+
+        <div class="space-y-2.5">
+          <a href="tel:081234567890" class="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 flex items-center justify-between transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-red-100 text-red-700 flex items-center justify-center font-bold">Y</span>
+              <div>
+                <p class="font-bold text-primary">Om Yanto (Audio Sound)</p>
+                <p class="text-[11px] text-on-surface-variant">0812-3456-7890 &bull; Balkon Sakristi</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[20px]">call</span>
+          </a>
+
+          <a href="tel:081198765432" class="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 flex items-center justify-between transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold">M</span>
+              <div>
+                <p class="font-bold text-primary">Kak Maria (Streaming & OBS)</p>
+                <p class="text-[11px] text-on-surface-variant">0811-9876-5432 &bull; Meja Kontrol</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[20px]">call</span>
+          </a>
+
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+            <div class="flex items-center gap-2 font-bold text-amber-950 mb-1">
+              <span class="material-symbols-outlined text-amber-700 text-[18px]">cell_tower</span>
+              <span>Radio Handy Talky (HT) Gereja:</span>
+            </div>
+            <p class="text-[11px] text-amber-900 leading-relaxed">
+              <strong>Channel 3</strong>: Komunikasi Tim Komsos & Ruang AV.<br/>
+              <strong>Channel 1</strong>: Koordinator Liturgi & Sakristan Altar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-surface-container-low border-t border-outline-variant/20 text-center">
+        <button onclick="closeHotlineModal()" class="w-full py-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold">
+          Tutup Dialog Bantuan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING TOAST NOTIFICATION ================= -->
+  <div id="toast-banner" class="fixed bottom-16 sm:bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-xl bg-primary text-white shadow-xl flex items-center gap-2.5 text-xs font-semibold border border-primary-container">
+      <span id="toast-icon" class="material-symbols-outlined text-amber-400 text-[18px]">check_circle</span>
+      <span id="toast-message">Notifikasi</span>
+    </div>
+  </div>
+
+  <!-- ================= MOBILE FIXED BOTTOM NAVIGATION ================= -->
+  <nav class="fixed bottom-0 left-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 py-1.5 px-3 flex items-center justify-around sm:hidden shadow-[0_-2px_10px_rgba(0,0,0,0.05)] text-[10px]">
+    <a href="#beranda" class="mobile-nav-pill flex flex-col items-center gap-0.5 text-primary font-bold" data-nav="beranda">
+      <span class="material-symbols-outlined text-[20px]">home</span>
+      <span>Beranda</span>
+    </a>
+    <a href="#alat" class="mobile-nav-pill flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors" data-nav="alat">
+      <span class="material-symbols-outlined text-[20px]">construction</span>
+      <span>Alat</span>
+    </a>
+    <a href="#langkah" class="mobile-nav-pill flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors" data-nav="langkah">
+      <span class="material-symbols-outlined text-[20px]">format_list_numbered</span>
+      <span>SOP</span>
+    </a>
+    <a href="#hari-h" class="mobile-nav-pill flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors" data-nav="hari-h">
+      <span class="material-symbols-outlined text-[20px] text-amber-600">bolt</span>
+      <span>Hari-H</span>
+    </a>
+    <a href="#bantuan" class="mobile-nav-pill flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-primary transition-colors" data-nav="bantuan">
+      <span class="material-symbols-outlined text-[20px]">help</span>
+      <span>Bantuan</span>
+    </a>
+  </nav>
+
+  <!-- ================= MAIN FOOTER ================= -->
+  <footer class="w-full bg-surface-container-lowest border-t border-outline-variant/30 shadow-sm mt-16 pb-16 sm:pb-0">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-outline-variant/20">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[24px]">church</span>
+          <span class="font-headline font-bold text-base text-primary">Komisi Komunikasi Sosial Paroki Maria Bunda</span>
+        </div>
+        <p class="text-xs text-on-surface-variant max-w-lg leading-relaxed">
+          Dibuat untuk pelayanan anak muda gereja. Melatih kesiapan teknis, kerendahan hati melayani, dan ketenangan operator dalam setiap perayaan ekaristi.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-on-surface font-semibold">Butuh panduan lengkap untuk sakristi?</p>
+          <p class="text-[11px] text-on-surface-variant">Siaga di ruang broadcast & radio HT gereja</p>
+        </div>
+        <button onclick="openHotlineModal()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 font-semibold text-xs transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">support_agent</span>
+          <span>Kontak Tim Komsos</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-2 text-on-surface-variant text-xs">
+      <span>&copy; 2025 Komsos Live Academy. Segala puji bagi Tuhan dalam pelayanan multimedia.</span>
+      <div class="flex items-center gap-4">
+        <button onclick="window.print()" class="hover:text-primary transition-colors text-xs">Cetak SOP Lengkap</button>
+        <a href="#bantuan" class="hover:text-primary transition-colors">Kamus Istilah Broadcast</a>
+        <a href="#alat" class="hover:text-primary transition-colors">Standar Kabel AV</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MASTER JAVASCRIPT LOGIC ================= -->
+  <script>
+    // --- 1. SPA ROUTER & VIEW SWITCHER ---
+    const VIEWS = ['beranda', 'alat', 'langkah', 'alur-sinyal', 'ptz', 'hari-h', 'latihan', 'bantuan'];
+    let currentView = @json($initialView ?? 'beranda');
+
+    function switchView(viewId) {
+      if (!VIEWS.includes(viewId)) viewId = 'beranda';
+      currentView = viewId;
+
+      // Toggle views
+      VIEWS.forEach(id => {
+        const el = document.getElementById('view-' + id);
+        if (el) {
+          if (id === viewId) {
+            el.classList.add('active-view');
+          } else {
+            el.classList.remove('active-view');
+          }
+        }
+      });
+
+      // Update desktop nav pills
+      document.querySelectorAll('.nav-pill').forEach(pill => {
+        if (pill.getAttribute('data-nav') === viewId) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      // Update mobile nav pills
+      document.querySelectorAll('.mobile-nav-pill').forEach(pill => {
+        if (pill.getAttribute('data-nav') === viewId) {
+          pill.classList.add('text-primary', 'font-bold');
+          pill.classList.remove('text-on-surface-variant');
+        } else {
+          pill.classList.remove('text-primary', 'font-bold');
+          pill.classList.add('text-on-surface-variant');
+        }
+      });
+
+      // Update URL hash without jumping
+      if (window.location.hash !== '#' + viewId) {
+        history.replaceState(null, null, '#' + viewId);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize from URL hash
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (VIEWS.includes(hash)) {
+        switchView(hash);
+      } else {
+        switchView(currentView);
+      }
+
+      initAudioMeter();
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (VIEWS.includes(hash)) {
+        switchView(hash);
+      }
+    });
+
+    // Helper navigators
+    function openYouTubeTab() {
+      switchView('langkah');
+      switchSopSubTab('software');
+      toggleSoftwareTab('yt');
+    }
+
+    function openObsTab() {
+      switchView('langkah');
+      switchSopSubTab('software');
+      toggleSoftwareTab('obs');
+    }
+
+    // --- 2. SOP 16-STEP ENGINE ---
+    const SOP_STEPS = [
+      { num: 1, phase: 'FASE A: PERSIAPAN AWAL MEJA AV', title: 'Colokkan Kabel Power & Stabilizer', time: '2 Menit', cable: 'Power AC 220V', desc: 'Pastikan tegangan stabil pada stabilizer sakristi sebelum menyalakan komponen audio visual.' },
+      { num: 2, phase: 'FASE A: PERSIAPAN AWAL MEJA AV', title: 'Nyalakan Mixer Audio Utama Gedung', time: '2 Menit', cable: 'Power Bus', desc: 'Nyalakan mixer audio utama Soundcraft dan posisikan fader master di 0 dB.' },
+      { num: 3, phase: 'FASE A: PERSIAPAN AWAL MEJA AV', title: 'Colokkan Kabel LAN RJ45 ke Laptop OBS', time: '1 Menit', cable: 'LAN Cat6 Hijau', desc: 'Hubungkan kabel LAN langsung dari switch Komsos ke laptop siaran. Pastikan IP DHCP paroki terhubung.' },
+      { num: 4, phase: 'FASE B: SAMBUNGAN AUDIO & VIDEO', title: 'Pasang Kabel Video HDMI Kamera PTZ', time: '3 Menit', cable: 'HDMI High-Speed Biru', desc: 'Tancapkan kabel HDMI dari Kamera PTZ Altar ke Port CAM 1 di ATEM Mini Switcher.' },
+      { num: 5, phase: 'FASE B: SAMBUNGAN AUDIO & VIDEO', title: 'Sambungkan Mixer Kecil ke ATEM Mini', time: '2 Menit', cable: 'Jack 3.5mm (Stereo TRS) | Audio Line In', desc: 'Ambil kabel audio Jack 3.5mm berkepala oranye dari colokan Phones / Output Mixer Kecil Komsos, lalu colokkan ke port bertuliskan MIC 1 di sisi belakang kiri ATEM Mini.' },
+      { num: 6, phase: 'FASE B: SAMBUNGAN AUDIO & VIDEO', title: 'Atur Gain Audio di ATEM Software Control', time: '2 Menit', cable: 'Software Setting', desc: 'Buka ATEM Software Control di laptop, atur gain level Mic 1 di kisaran -12dB s/d -6dB.' },
+      { num: 7, phase: 'FASE B: SAMBUNGAN AUDIO & VIDEO', title: 'Tancapkan Kabel HDMI Extender TV Sayap', time: '2 Menit', cable: 'HDMI Extender Cat6', desc: 'Sambungkan kabel HDMI Output PGM switcher ke pemancar extender untuk siaran ke TV umat.' },
+      { num: 8, phase: 'FASE C: TAYANGAN TV & PROYEKTOR', title: 'Nyalakan 4 TV Umat & Splitter HDMI', time: '3 Menit', cable: 'Splitter 1x4', desc: 'Periksa seluruh 4 layar TV umat di gedung gereja agar menyala dan menampilkan tayangan altar.' },
+      { num: 9, phase: 'FASE C: TAYANGAN TV & PROYEKTOR', title: 'Set Rasio Aspek TV ke 16:9 Full Screen', time: '1 Menit', cable: 'Display Aspect', desc: 'Pastikan TV tidak terpotong (fit to screen 16:9) agar lirik lagu terbaca utuh.' },
+      { num: 10, phase: 'FASE D: OBS & YOUTUBE LIVE', title: 'Buka OBS Studio & Masukkan Stream Key', time: '3 Menit', cable: 'RTMPS Protocol', desc: 'Buka OBS, tempelkan stream key dari YouTube Studio ke menu Settings > Stream.' },
+      { num: 11, phase: 'FASE D: OBS & YOUTUBE LIVE', title: 'Uji Bitrate 1080p & Sync Delay Audio', time: '2 Menit', cable: 'OBS Audio Properties', desc: 'Periksa indikator bitrate OBS berwarna hijau stabil (4500-6000 kbps) dan sync audio delay 150ms.' },
+      { num: 12, phase: 'FASE D: OBS & YOUTUBE LIVE', title: 'Konfirmasi Teks NDI Slide Lirik Misa', time: '2 Menit', cable: 'NDI Network', desc: 'Pastikan slide lirik lagu misa dari operator laptop presentasi muncul di preview OBS.' },
+      { num: 13, phase: 'FASE E & F: FRAMING & GO-LIVE', title: 'Kunci Preset Framing Altar & Mimbar', time: '2 Menit', cable: 'PTZ Preset', desc: 'Verifikasi Preset 01 (Altar), Preset 02 (Mimbar), dan Preset 03 (Koor) tersimpan presisi.' },
+      { num: 14, phase: 'FASE E & F: FRAMING & GO-LIVE', title: 'Soundcheck Terakhir Bersama Lektor', time: '2 Menit', cable: 'Mic Check', desc: 'Minta lektor membacakan pengantar singkat untuk memastikan volume audio pas di -12dB.' },
+      { num: 15, phase: 'FASE E & F: FRAMING & GO-LIVE', title: 'Hening Sejenak & Doa Kru Bersama', time: '2 Menit', cable: 'Spiritual', desc: 'Kru sakristi berdoa bersama memohon penyertaan Roh Kudus dalam pelayanan siaran suci.' },
+      { num: 16, phase: 'FASE E & F: FRAMING & GO-LIVE', title: 'Go-Live Siaga 1 (Hitung Mundur)', time: '1 Menit', cable: 'LIVE Broadcast', desc: 'Tekan Start Streaming di OBS Studio dan Go Live di YouTube Studio tepat H-5 menit sebelum misa.' }
+    ];
+
+    let currentSopStep = 5;
+
+    function selectStep(stepNum) {
+      if (stepNum < 1) stepNum = 1;
+      if (stepNum > 16) stepNum = 16;
+      currentSopStep = stepNum;
+      const data = SOP_STEPS[stepNum - 1];
+
+      // Update badge & texts
+      document.getElementById('step-number-badge').textContent = String(stepNum).padStart(2, '0');
+      document.getElementById('step-phase-tag').textContent = data.phase;
+      document.getElementById('step-time-tag').textContent = 'Estimasi: ' + data.time;
+      document.getElementById('step-title-display').textContent = data.title;
+      document.getElementById('step-cable-tag').textContent = data.cable;
+      document.getElementById('step-desc-display').textContent = data.desc;
+      document.getElementById('sop-progress-badge').textContent = `Langkah ${stepNum} dari 16`;
+
+      // Update next button label
+      const nextBtn = document.getElementById('next-step-btn');
+      if (stepNum === 16) {
+        nextBtn.innerHTML = '<span>Selesai Seluruh SOP!</span><span class="material-symbols-outlined text-[16px]">verified</span>';
+      } else {
+        nextBtn.innerHTML = `<span>Simpan & Lanjut Langkah ${String(stepNum + 1).padStart(2, '0')}</span><span class="material-symbols-outlined text-[16px]">arrow_forward</span>`;
+      }
+
+      // Highlight step button in list
+      document.querySelectorAll('.step-btn').forEach(btn => {
+        const s = parseInt(btn.getAttribute('data-step'));
+        if (s === stepNum) {
+          btn.className = 'step-btn w-full text-left p-2 rounded-lg text-xs bg-amber-100/80 font-bold text-amber-950 flex items-center justify-between transition-colors border-l-4 border-amber-600';
+        } else {
+          btn.className = 'step-btn w-full text-left p-2 rounded-lg text-xs hover:bg-surface-container flex items-center justify-between transition-colors';
+        }
+      });
+
+      // Reset checkbox state for demo
+      document.getElementById('step-done-check').checked = (stepNum <= 4);
+    }
+
+    function nextStep() {
+      if (currentSopStep < 16) {
+        selectStep(currentSopStep + 1);
+        showToast(`Langkah ${currentSopStep} dimuat!`, 'check_circle');
+      } else {
+        showToast('Seluruh 16 Langkah SOP telah selesai dipelajari!', 'workspace_premium');
+      }
+    }
+
+    function prevStep() {
+      if (currentSopStep > 1) {
+        selectStep(currentSopStep - 1);
+      }
+    }
+
+    function toggleStepDone() {
+      const isDone = document.getElementById('step-done-check').checked;
+      if (isDone) {
+        showToast(`Langkah ${currentSopStep} berhasil diverifikasi!`, 'task_alt');
+      }
+    }
+
+    function switchSopSubTab(tab) {
+      const btnR = document.getElementById('tab-btn-rigging');
+      const btnS = document.getElementById('tab-btn-software');
+      const pR = document.getElementById('subview-rigging');
+      const pS = document.getElementById('subview-software');
+
+      if (tab === 'rigging') {
+        btnR.className = 'px-3.5 py-1.5 rounded-lg bg-primary text-white shadow-sm transition-all';
+        btnS.className = 'px-3.5 py-1.5 rounded-lg text-on-surface hover:text-primary transition-all';
+        pR.classList.remove('hidden');
+        pS.classList.add('hidden');
+      } else {
+        btnS.className = 'px-3.5 py-1.5 rounded-lg bg-primary text-white shadow-sm transition-all';
+        btnR.className = 'px-3.5 py-1.5 rounded-lg text-on-surface hover:text-primary transition-all';
+        pS.classList.remove('hidden');
+        pR.classList.add('hidden');
+      }
+    }
+
+    function toggleSoftwareTab(sw) {
+      const btnYt = document.getElementById('sw-btn-yt');
+      const btnObs = document.getElementById('sw-btn-obs');
+      const pYt = document.getElementById('sw-panel-yt');
+      const pObs = document.getElementById('sw-panel-obs');
+
+      if (sw === 'yt') {
+        btnYt.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white transition-all flex items-center gap-1.5';
+        btnObs.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-surface-container text-on-surface hover:text-primary transition-all flex items-center gap-1.5';
+        pYt.classList.remove('hidden');
+        pObs.classList.add('hidden');
+      } else {
+        btnObs.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white transition-all flex items-center gap-1.5';
+        btnYt.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-surface-container text-on-surface hover:text-primary transition-all flex items-center gap-1.5';
+        pObs.classList.remove('hidden');
+        pYt.classList.add('hidden');
+      }
+    }
+
+    // --- 3. ALUR SINYAL INTERACTIVE ROUTE ENGINE ---
+    const RUTE_DATA = {
+      'sub-atem': {
+        title: 'Koneksi: Sub-Mixer ke ATEM Mini (Audio Masuk Switcher)',
+        kabel: 'Kabel Jack 3.5mm Stereo (TRS) to 3.5mm',
+        out: 'Mixer Kecil Komsos: Phones / Monitor Out L-R (Knob arah jam 10)',
+        in: 'ATEM Mini: Port Mic 1 (Bagian Belakang Kiri)',
+        tip: 'Atur gain Mic 1 di laptop lewat aplikasi ATEM Software Control ke kisaran -6dB sampai -12dB.',
+        awas: 'Jangan colok kabel ini langsung ke lubang audio MacBook! Jack headphone di laptop adalah port output.'
+      },
+      'mic-mixer': {
+        title: 'Koneksi: Mikrofon Altar ke Mixer Audio Utama Gedung',
+        kabel: 'Kabel XLR 3-Pin Balanced (Kabel Ungu)',
+        out: 'Floor Box Altar: Port Saluran Mic 1-4',
+        in: 'Mixer Soundcraft: Channel 1-4 XLR Input (Balkon Gedung)',
+        tip: 'Gunakan kabel seimbang (balanced) agar bebas dengung listrik statis AC dari lampu gereja.',
+        awas: 'Jangan aktifkan Phantom Power (+48V) bila mikrofon yang digunakan adalah tipe dinamis biasa!'
+      },
+      'ptz-atem': {
+        title: 'Koneksi: Kamera PTZ Altar ke Port CAM 1 ATEM Mini',
+        kabel: 'Kabel HDMI High-Speed 1080p (Kabel Biru)',
+        out: 'Kamera PTZ Balkon: HDMI Clean Out (1920x1080 50fps)',
+        in: 'ATEM Mini: Port Input 1 (Kamera Utama Altar)',
+        tip: 'Pastikan kabel terpasang dengan klip penjepit di tripod agar tidak goyang saat kamera digerakkan.',
+        awas: 'Jangan gunakan kabel HDMI biasa di atas 15 meter tanpa active signal booster (extender).'
+      },
+      'ndi-obs': {
+        title: 'Koneksi: Laptop Teks Lagu ke OBS Studio (NDI Network)',
+        kabel: 'Kabel Jaringan LAN RJ45 Cat6 (Kabel Hijau)',
+        out: 'Laptop Presentasi Liturgi: NDI Alpha Output',
+        in: 'OBS Studio: NDI Source Plugin',
+        tip: 'NDI mengirimkan video transparan beresolusi tinggi tanpa perlu colokan kabel HDMI fisik.',
+        awas: 'Kedua laptop WAJIB berada dalam 1 router subnet IP yang sama (misal: 192.168.1.xxx).'
+      },
+      'obs-tv': {
+        title: 'Koneksi: MacBook OBS ke Splitter HDMI 4 TV Umat',
+        kabel: 'Kabel HDMI PGM Out & Extender Cat6',
+        out: 'ATEM Mini: HDMI Program Out',
+        in: 'Splitter HDMI 1x4 & Receiver TV Umat di Sayap Gedung',
+        tip: 'Gunakan splitter aktif berpenguat sinyal adaptor listrik 5V.',
+        awas: 'Periksa lampu indikator Link di belakang receiver TV sebelum perayaan misa dimulai.'
+      },
+      'obs-yt': {
+        title: 'Koneksi: OBS Studio ke YouTube Live Broadcast',
+        kabel: 'Protokol RTMPS Internet LAN Paroki (15 Mbps)',
+        out: 'MacBook Pro: OBS Encoder H.264 (6000 kbps)',
+        in: 'Server YouTube Ingest Live Room',
+        tip: 'Koneksi kabel LAN menjamin siaran bebas jitter saat gereja dipenuhi 500+ umat.',
+        awas: 'Jangan pernah siaran menggunakan WiFi umum gereja yang diakses oleh ponsel umat!'
+      }
+    };
+
+    function selectRute(ruteKey) {
+      const data = RUTE_DATA[ruteKey];
+      if (!data) return;
+
+      document.getElementById('rute-title').textContent = data.title;
+      document.getElementById('rute-kabel').textContent = data.kabel;
+      document.getElementById('rute-out').textContent = data.out;
+      document.getElementById('rute-in').textContent = data.in;
+      document.getElementById('rute-tip').textContent = data.tip;
+      document.getElementById('rute-awas').textContent = data.awas;
+
+      // Update pills active
+      document.querySelectorAll('.rute-pill').forEach(btn => {
+        if (btn.getAttribute('data-rute') === ruteKey) {
+          btn.className = 'rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-primary text-white transition-all shadow-sm';
+        } else {
+          btn.className = 'rute-pill px-3 py-1.5 rounded-xl text-xs font-bold bg-surface-container hover:bg-surface-container-high text-on-surface transition-all';
+        }
+      });
+
+      // Highlight active nodes
+      document.querySelectorAll('.signal-node').forEach(node => {
+        node.classList.remove('ring-4', 'ring-amber-400');
+      });
+
+      if (ruteKey === 'sub-atem') {
+        document.getElementById('node-submixer')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-atem')?.classList.add('ring-4', 'ring-amber-400');
+      } else if (ruteKey === 'mic-mixer') {
+        document.getElementById('node-mic')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-mixer-utama')?.classList.add('ring-4', 'ring-amber-400');
+      } else if (ruteKey === 'ptz-atem') {
+        document.getElementById('node-ptz')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-atem')?.classList.add('ring-4', 'ring-amber-400');
+      } else if (ruteKey === 'ndi-obs') {
+        document.getElementById('node-teks')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-obs')?.classList.add('ring-4', 'ring-amber-400');
+      } else if (ruteKey === 'obs-tv') {
+        document.getElementById('node-splitter')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-tv')?.classList.add('ring-4', 'ring-amber-400');
+      } else if (ruteKey === 'obs-yt') {
+        document.getElementById('node-obs')?.classList.add('ring-4', 'ring-amber-400');
+        document.getElementById('node-yt')?.classList.add('ring-4', 'ring-amber-400');
+      }
+
+      showToast(`Rute [${ruteKey.toUpperCase()}] diperiksa`, 'cable');
+    }
+
+    let simulasiActive = false;
+    function toggleSimulasiSinyal() {
+      simulasiActive = !simulasiActive;
+      const btn = document.getElementById('simulasi-toggle-btn');
+      const txt = document.getElementById('simulasi-btn-text');
+
+      if (simulasiActive) {
+        btn.classList.replace('bg-primary', 'bg-emerald-600');
+        txt.textContent = 'Simulasi Mengalir Aktif';
+        document.querySelectorAll('.signal-node').forEach(n => n.classList.add('pulse-glow'));
+        showToast('Simulasi aliran sinyal AV liturgis aktif!', 'sensors');
+      } else {
+        btn.classList.replace('bg-emerald-600', 'bg-primary');
+        txt.textContent = 'Mode Simulasi Aktif';
+        document.querySelectorAll('.signal-node').forEach(n => n.classList.remove('pulse-glow'));
+      }
+    }
+
+    function resetRutePilihan() {
+      selectRute('sub-atem');
+    }
+
+    // --- 4. PTZ CAMERA SIMULATOR ---
+    let ptzX = 0;
+    let ptzY = 0;
+    let ptzScale = 1.0;
+
+    function updatePtzTransform() {
+      const el = document.getElementById('ptz-viewport');
+      if (el) {
+        el.style.transform = `translate(${ptzX}px, ${ptzY}px) scale(${ptzScale})`;
+      }
+    }
+
+    function ptzMove(direction) {
+      const step = 20;
+      if (direction === 'up') ptzY += step;
+      if (direction === 'down') ptzY -= step;
+      if (direction === 'left') ptzX += step;
+      if (direction === 'right') ptzX -= step;
+      updatePtzTransform();
+      document.getElementById('ptz-status-overlay').textContent = `MANUAL PAN/TILT (${ptzX}, ${ptzY})`;
+    }
+
+    function ptzZoom(type) {
+      if (type === 'in' && ptzScale < 2.5) ptzScale += 0.2;
+      if (type === 'out' && ptzScale > 1.0) ptzScale -= 0.2;
+      updatePtzTransform();
+      document.getElementById('ptz-status-overlay').textContent = `ZOOM: ${ptzScale.toFixed(1)}x`;
+    }
+
+    function ptzReset() {
+      ptzX = 0;
+      ptzY = 0;
+      ptzScale = 1.0;
+      updatePtzTransform();
+      document.getElementById('ptz-status-overlay').textContent = 'POSISI NETRAL';
+      showToast('Posisi kamera PTZ di-reset ke tengah', 'center_focus_strong');
+    }
+
+    function applyPtzPreset(presetId) {
+      // Highlight preset button
+      document.querySelectorAll('.ptz-preset-btn').forEach(btn => {
+        const p = parseInt(btn.getAttribute('data-preset'));
+        if (p === presetId) {
+          btn.className = 'ptz-preset-btn p-2 rounded-xl bg-primary border-2 border-amber-400 text-center transition-all scale-105';
+        } else {
+          btn.className = 'ptz-preset-btn p-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-center transition-all';
+        }
+      });
+
+      const overlay = document.getElementById('ptz-status-overlay');
+
+      if (presetId === 1) {
+        ptzX = 0; ptzY = 0; ptzScale = 1.5;
+        overlay.textContent = 'PRESET: 01 (ALTAR UTAMA)';
+        showToast('Preset 01: Altar Utama (Konsekrasi) diaktifkan', 'church');
+      } else if (presetId === 2) {
+        ptzX = 60; ptzY = 20; ptzScale = 1.8;
+        overlay.textContent = 'PRESET: 02 (MIMBAR / AMBO)';
+        showToast('Preset 02: Mimbar Firman (Homili) diaktifkan', 'menu_book');
+      } else if (presetId === 3) {
+        ptzX = -80; ptzY = -10; ptzScale = 1.4;
+        overlay.textContent = 'PRESET: 03 (KOOR / PADUAN)';
+        showToast('Preset 03: Paduan Suara & Organ diaktifkan', 'music_note');
+      } else if (presetId === 4) {
+        ptzX = 0; ptzY = 0; ptzScale = 1.0;
+        overlay.textContent = 'PRESET: 04 (PANTI IMAM LUAS)';
+        showToast('Preset 04: Panti Imam Luas diaktifkan', 'panorama');
+      }
+
+      updatePtzTransform();
+    }
+
+    function ptzAutoFocus() {
+      const img = document.getElementById('ptz-altar-img');
+      img.style.filter = 'blur(4px)';
+      setTimeout(() => {
+        img.style.filter = 'none';
+        showToast('One-Push Auto Focus Berhasil!', 'filter_center_focus');
+      }, 300);
+    }
+
+    function toggleGrid() {
+      const grid = document.getElementById('ptz-grid');
+      grid.classList.toggle('hidden');
+    }
+
+    function testRefleksPtz(scenario) {
+      const msg = document.getElementById('ptz-refleks-msg');
+      msg.classList.remove('hidden');
+
+      if (scenario === 1) {
+        applyPtzPreset(1);
+        msg.innerHTML = '<span class="text-amber-300 font-bold">&check; TEPAT!</span> Saat imam konsekrasi, panggil <strong>Preset 01 (Altar)</strong> dan kunci hening!';
+      } else if (scenario === 2) {
+        applyPtzPreset(2);
+        msg.innerHTML = '<span class="text-amber-300 font-bold">&check; TEPAT!</span> Saat lektor membaca sabda, arahkan ke <strong>Preset 02 (Mimbar)</strong>!';
+      } else if (scenario === 3) {
+        applyPtzPreset(3);
+        msg.innerHTML = '<span class="text-amber-300 font-bold">&check; TEPAT!</span> Saat umat komuni, arahkan ke <strong>Preset 03 (Koor)</strong>!';
+      }
+    }
+
+    // --- 5. MODE HARI-H CHECKLIST & AUDIO VU METER ---
+    function updateHariHCount() {
+      const boxes = document.querySelectorAll('.hari-h-box');
+      let done = 0;
+      boxes.forEach(b => { if (b.checked) done++; });
+
+      const total = boxes.length;
+      const pct = Math.round((done / total) * 100);
+
+      document.getElementById('hari-h-counter').textContent = `${done} / ${total} LANGKAH SIAP`;
+      document.getElementById('hari-h-progress-bar').style.width = pct + '%';
+      document.getElementById('hari-h-percent').textContent = pct + '%';
+
+      // Update Phase 1 counter
+      const p1Boxes = document.querySelectorAll('#view-hari-h .hari-h-box');
+      // Sub count
+      let p1 = 0;
+      for (let i = 0; i < 8 && i < p1Boxes.length; i++) {
+        if (p1Boxes[i].checked) p1++;
+      }
+      document.getElementById('p1-counter').textContent = `${p1}/8 Selesai`;
+    }
+
+    function resetHariHChecklist() {
+      document.querySelectorAll('.hari-h-box').forEach(b => b.checked = false);
+      updateHariHCount();
+      showToast('Checklist Hari-H di-reset', 'refresh');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function updateAturanCount() {
+      const checks = document.querySelectorAll('.aturan-check');
+      let c = 0;
+      checks.forEach(chk => { if (chk.checked) c++; });
+      document.getElementById('aturan-counter').textContent = `${c}/3 Terverifikasi`;
+      if (c === 3) {
+        showToast('3 Aturan Emas Kru Kabel Terverifikasi!', 'verified');
+      }
+    }
+
+    // Audio VU Meter Realistic Animation Loop
+    function initAudioMeter() {
+      const meterL = document.getElementById('vu-meter-l');
+      const meterR = document.getElementById('vu-meter-r');
+      const textL = document.getElementById('vu-l-text');
+      const textR = document.getElementById('vu-r-text');
+
+      let tick = 0;
+      function animate() {
+        tick += 0.05;
+        // Fluctuates around -12dB (60% to 72% bar width)
+        const valL = 63 + Math.sin(tick * 3) * 6 + Math.cos(tick * 5) * 4;
+        const valR = 61 + Math.sin(tick * 3.5) * 5 + Math.cos(tick * 4.2) * 5;
+
+        if (meterL) meterL.style.width = Math.min(85, Math.max(30, valL)) + '%';
+        if (meterR) meterR.style.width = Math.min(85, Math.max(30, valR)) + '%';
+
+        const dbL = (-12.0 + (valL - 63) * 0.4).toFixed(1);
+        const dbR = (-12.0 + (valR - 61) * 0.4).toFixed(1);
+
+        if (textL) textL.textContent = `${dbL} dB`;
+        if (textR) textR.textContent = `${dbR} dB`;
+
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // --- 6. SIMULASI KABEL SAKRISTI (GAME) ---
+    let selectedCableType = '35';
+
+    function pickCable(type) {
+      selectedCableType = type;
+      document.querySelectorAll('.cable-chip').forEach(c => {
+        c.classList.remove('border-amber-500', 'ring-2', 'ring-amber-400/50');
+      });
+
+      const selected = document.querySelector(`.cable-chip[data-cable="${type}"]`);
+      if (selected) {
+        selected.classList.add('border-amber-500', 'ring-2', 'ring-amber-400/50');
+      }
+
+      const bar = document.getElementById('cable-instruction-text');
+      if (type === '35') {
+        bar.textContent = 'Kabel Jack 3.5mm TRS terpilih. Silakan klik port yang tepat di bawah:';
+      } else if (type === 'hdmi') {
+        bar.textContent = 'Kabel HDMI terpilih. Colokkan ke port input kamera switcher.';
+      } else if (type === 'xlr') {
+        bar.textContent = 'Kabel XLR Mikrofon terpilih. Colokkan ke soket Mic input.';
+      } else {
+        bar.textContent = `Kabel ${type.toUpperCase()} terpilih. Klik soket sakristi sasaran:`;
+      }
+
+      showToast(`Kabel ${type.toUpperCase()} diambil dari boks`, 'cable');
+    }
+
+    function plugCableIntoPort(targetPort) {
+      if (targetPort === 'atem-mic1') {
+        if (selectedCableType === '35') {
+          // Success!
+          const portEl = document.getElementById('port-atem-mic1');
+          portEl.className = 'p-3 rounded-lg bg-emerald-50 border-2 border-emerald-500 text-xs transition-colors ring-2 ring-emerald-300';
+          portEl.innerHTML = `
+            <span class="text-[10px] font-bold text-emerald-800 block uppercase">PORT: AUDIO MIC 1 IN</span>
+            <span class="text-xs font-bold text-emerald-950 block mt-1">&check; TERPASANG SUKSES!</span>
+            <p class="text-[10px] text-emerald-800 mt-1">Jack 3.5mm TRS terhubung ke ATEM Mini.</p>
+          `;
+
+          const badge = document.getElementById('cable-score-badge');
+          badge.textContent = '4 dari 4 Selesai! (100%)';
+          badge.className = 'px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold animate-bounce';
+
+          const chipStatus = document.getElementById('chip-35-status');
+          if (chipStatus) {
+            chipStatus.textContent = 'âœ” TERPASANG';
+            chipStatus.className = 'text-[10px] font-bold text-emerald-700 block mt-2';
+          }
+
+          showToast('HEBAT! Kabel 3.5mm berhasil disambung ke ATEM Mic 1!', 'verified');
+        } else {
+          showToast('Colokan tidak cocok! Port Mic 1 membutuhkan kabel Jack 3.5mm TRS.', 'warning');
+        }
+      } else {
+        showToast('Port ini sudah terpasang atau bukan target colokan saat ini.', 'info');
+      }
+    }
+
+    function resetCableSimulator() {
+      location.reload();
+    }
+
+    // --- 7. KUIS KILAT 5 SOAL ENGINE ---
+    const QUIZ_LIST = [
+      {
+        id: 1,
+        cat: 'ETIKA LITURGI & PENYIARAN',
+        q: 'Apa tujuan utama dari siaran langsung perayaan Ekaristi bagi umat Katolik?',
+        opts: {
+          A: 'Menampilkan kecanggihan peralatan multimedia gereja kepada publik.',
+          B: 'Membantu umat lansia dan yang berhalangan sakit agar tetap dapat bersatu hati dalam doa misa.',
+          C: 'Mendapatkan banyak viewer dan subscriber di kanal YouTube paroki.',
+          D: 'Menggantikan kewajiban hadir secara fisik bagi seluruh umat yang malas ke gereja.'
+        },
+        correct: 'B',
+        exp: 'Siaran liturgi adalah sarana pastoral untuk menyapa mereka yang sakit, jompo, dan terhalang hadir secara fisik, bukan untuk pertunjukan duniawi.'
+      },
+      {
+        id: 2,
+        cat: 'TATA SUARA & MIXER',
+        q: 'Bila indikator volume audio di OBS Studio menyentuh warna merah (0 dB), apa akibat buruknya bagi siaran?',
+        opts: {
+          A: 'Suara akan menjadi lebih merdu dan megah.',
+          B: 'Terjadi clipping (suara pecah dan berdenging parau yang memekakkan telinga umat).',
+          C: 'OBS Studio akan langsung mati otomatis.',
+          D: 'Tidak ada pengaruh apa pun pada siaran.'
+        },
+        correct: 'B',
+        exp: 'Audio clipping pada level 0 dB digital merusak gelombang suara dan menghasilkan distorsi parau yang sangat mengganggu keheningan doa.'
+      },
+      {
+        id: 3,
+        cat: 'ETIKA & KONTROL KAMERA LITURGI',
+        q: 'Saat imam sedang mengangkat Hosti Suci dan Piala anggur dalam Doa Syukur Agung (saat Konsekrasi), apa tindakan yang HARUS dilakukan operator kamera PTZ?',
+        opts: {
+          A: 'Menggerakkan joystick cepat untuk memperbesar piala (zoom-in ekstrim) agar siaran terasa lebih sinematik.',
+          B: 'Menahan posisi kamera tetap hening dan tenang (framing panti imam khidmat) tanpa gerakan mendadak.',
+          C: 'Memindahkan cut gambar ke kamera sudut lebar umat yang sedang menunduk dan berlutut menyembah.',
+          D: 'Mematikan sementara stream YouTube sakristi demi menghemat bandwidth internet paroki.'
+        },
+        correct: 'B',
+        exp: 'Konsekrasi adalah puncak misteri Ekaristi Kudus. Kamera wajib tenang dan hening agar tidak memecah konsentrasi adorasi umat.'
+      },
+      {
+        id: 4,
+        cat: 'JARINGAN & INFRASTRUKTUR',
+        q: 'Mengapa meja operator Komsos dilarang keras mengandalkan koneksi Wi-Fi saat live streaming misa?',
+        opts: {
+          A: 'Karena gelombang Wi-Fi dapat merusak amplifier sakristi.',
+          B: 'Karena saat ratusan umat hadir di gereja, interferensi smartphone akan membuat sinyal Wi-Fi drop dan siaran putus-putus.',
+          C: 'Karena laptop streaming tidak memiliki antena nirkabel.',
+          D: 'Karena kabel LAN lebih mahal harganya.'
+        },
+        correct: 'B',
+        exp: 'Kabel fisik LAN Cat6 menjamin kestabilan bitrate dedicated bebas interferensi ribuan perangkat ponsel umat yang berada di gedung.'
+      },
+      {
+        id: 5,
+        cat: 'TROUBLESHOOTING DARURAT',
+        q: 'Bila salah satu kamera HDMI tiba-tiba mati mendadak saat khotbah romo sedang berlangsung, tindakan awal apa yang harus diambil?',
+        opts: {
+          A: 'Berteriak memanggil romo agar menghentikan khotbah sejenak.',
+          B: 'Pindahkan segera preview switcher ke kamera cadangan / slide teks misa, lalu periksa colokan kabel dengan tenang.',
+          C: 'Langsung mematikan laptop streaming OBS Studio.',
+          D: 'Maju ke depan altar untuk memperbaiki kabel kamera.'
+        },
+        correct: 'B',
+        exp: 'Ketenangan kru adalah kunci. Cut segera ke sudut aman atau slide teks misa, baru lakukan troubleshooting tanpa menarik perhatian umat.'
+      }
+    ];
+
+    let currentQuizIndex = 2; // Index 2 = Question 3 (default from screen)
+
+    function loadQuiz(idx) {
+      if (idx < 0) idx = 0;
+      if (idx >= QUIZ_LIST.length) idx = QUIZ_LIST.length - 1;
+      currentQuizIndex = idx;
+      const q = QUIZ_LIST[idx];
+
+      document.getElementById('quiz-question-title').textContent = `Kuis Kilat Siaga Siaran â€¢ Pertanyaan ${idx + 1} dari 5`;
+      document.getElementById('quiz-category').textContent = `KATEGORI: ${q.cat}`;
+      document.getElementById('quiz-question-text').textContent = q.q;
+
+      // Update bubbles
+      const bubbles = document.querySelectorAll('#quiz-bubbles button');
+      bubbles.forEach((b, i) => {
+        if (i < idx) {
+          b.className = 'w-7 h-7 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center';
+          b.innerHTML = '&check;';
+        } else if (i === idx) {
+          b.className = 'w-7 h-7 rounded-full bg-amber-400 text-amber-950 font-bold text-xs flex items-center justify-center ring-2 ring-amber-500';
+          b.textContent = String(i + 1);
+        } else {
+          b.className = 'w-7 h-7 rounded-full bg-surface-container text-on-surface font-bold text-xs flex items-center justify-center';
+          b.textContent = String(i + 1);
+        }
+      });
+
+      // Render options
+      const optBox = document.getElementById('quiz-options-box');
+      optBox.innerHTML = '';
+      for (const [key, text] of Object.entries(q.opts)) {
+        const isCorrect = (key === q.correct);
+        const btn = document.createElement('button');
+        btn.onclick = () => answerQuiz(key);
+        btn.className = isCorrect
+          ? 'quiz-opt w-full p-4 rounded-xl text-left bg-emerald-50 border-2 border-emerald-500 text-emerald-950 text-xs sm:text-sm font-semibold transition-all flex items-start justify-between gap-3 shadow-sm'
+          : 'quiz-opt w-full p-4 rounded-xl text-left bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 text-xs sm:text-sm transition-all flex items-start gap-3';
+        btn.innerHTML = `
+          <div class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-lg ${isCorrect ? 'bg-emerald-600 text-white' : 'bg-surface-container text-primary'} font-bold text-xs flex items-center justify-center shrink-0">${isCorrect ? '&check;' : key}</span>
+            <span>${text}</span>
+          </div>
+          ${isCorrect ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-600 text-white shrink-0">PILIHAN TEPAT</span>' : ''}
+        `;
+        optBox.appendChild(btn);
+      }
+
+      // Explanation
+      document.getElementById('quiz-feedback-text').textContent = q.exp;
+      document.getElementById('next-quiz-btn').textContent = (idx === 4) ? 'Lihat Evaluasi & Lencana' : `Lanjut ke Pertanyaan ${idx + 2}`;
+    }
+
+    function gotoQuiz(qNum) {
+      loadQuiz(qNum - 1);
+    }
+
+    function nextQuiz() {
+      if (currentQuizIndex < QUIZ_LIST.length - 1) {
+        loadQuiz(currentQuizIndex + 1);
+      } else {
+        scrollToExercise('section-result');
+        showToast('Kuis Selesai! Skor kamu: 92/100 Poin', 'workspace_premium');
+      }
+    }
+
+    function prevQuiz() {
+      if (currentQuizIndex > 0) {
+        loadQuiz(currentQuizIndex - 1);
+      }
+    }
+
+    function answerQuiz(opt) {
+      const q = QUIZ_LIST[currentQuizIndex];
+      if (opt === q.correct) {
+        showToast('Jawaban Benar! +20 Poin Kesiapan', 'verified');
+      } else {
+        showToast('Jawaban kurang tepat. Perhatikan etika liturgisnya.', 'info');
+      }
+    }
+
+    function scrollToExercise(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetAllExercises() {
+      loadQuiz(0);
+      scrollToExercise('section-cables');
+      showToast('Latihan di-reset dari awal.', 'refresh');
+    }
+
+    // --- 8. ALAT & PORT INSPECTOR ---
+    function filterAlat(category, btn) {
+      document.querySelectorAll('#alat-filter-group button').forEach(b => {
+        b.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors';
+      });
+      if (btn) btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-primary text-white transition-colors';
+
+      document.querySelectorAll('.alat-card').forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function searchAlat(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll('.alat-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function openAtemPortInspector() {
+      const modal = document.getElementById('atem-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAtemModal() {
+      const modal = document.getElementById('atem-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    const ATEM_PORTS = {
+      'mic1': { name: 'PORT: MIC 1 (Audio 3.5mm Stereo TRS)', badge: 'Audio Line In', cable: 'Jack 3.5mm TRS (2 Cincin Hitam)', desc: 'Menerima sinyal audio stereo bersih hasil mixing dari Sub-Mixer meja Komsos atau Mixer Gedung. Sinyal ini disatukan bersama paket data video kamera untuk dikirimkan serentak ke laptop OBS.' },
+      'power': { name: 'PORT: 12V DC POWER INPUT', badge: 'Power Supply', cable: 'Adaptor 12V DC Locking Ring', desc: 'Port catu daya utama ATEM Mini. Pastikan ulir pengunci diputar rapat agar listrik tidak terputus bila kabel tidak sengaja tersenggol.' },
+      'lan': { name: 'PORT: ETHERNET RJ45 LAN CONTROL', badge: 'Network Control', cable: 'Kabel LAN RJ45 Cat6', desc: 'Menghubungkan switcher ke router lokal agar dapat dikendalikan jarak jauh lewat aplikasi ATEM Software Control di laptop.' },
+      'usb': { name: 'PORT: USB-C WEBCAM OUT', badge: 'Video/Audio Stream Out', cable: 'Kabel USB-C 3.1 Data', desc: 'Menerjemahkan output siaran program menjadi format webcam murni sehingga otomatis terbaca oleh OBS Studio tanpa driver tambahan.' },
+      'hdmi-out': { name: 'PORT: HDMI PROGRAM OUT', badge: 'Local Display Out', cable: 'Kabel HDMI High-Speed', desc: 'Mengirimkan tampilan multiview atau output siaran langsung ke monitor sakristi atau TV gedung umat.' },
+      'cam1': { name: 'PORT: HDMI CAM 1 (Input Utama Altar)', badge: 'Primary Video In', cable: 'HDMI Biru', desc: 'Input kamera sudut lebar Altar. Menjadi referensi master frame rate sinkronisasi switcher.' },
+      'cam2': { name: 'PORT: HDMI CAM 2-4 (Input Tambahan)', badge: 'Secondary Video In', cable: 'HDMI Biru', desc: 'Input untuk kamera mimbar lektor, kamera paduan suara koor, dan laptop presentasi slide lirik misa.' }
+    };
+
+    function inspectPort(key) {
+      const p = ATEM_PORTS[key];
+      if (!p) return;
+      document.getElementById('inspect-port-name').textContent = p.name;
+      document.getElementById('inspect-port-badge').textContent = p.badge;
+      document.getElementById('inspect-port-cable').textContent = p.cable;
+      document.getElementById('inspect-port-desc').textContent = p.desc;
+    }
+
+    // --- 9. BANTUAN & TROUBLESHOOTING FILTERS ---
+    function filterHelpIssues(query) {
+      const q = query.toLowerCase();
+      document.querySelectorAll('.help-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function filterHelpTag(tag) {
+      document.querySelectorAll('.help-card').forEach(card => {
+        if (tag === 'all' || card.getAttribute('data-category') === tag) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      showToast(`Filter kendala: ${tag.toUpperCase()}`, 'filter_list');
+    }
+
+    function resetHelpFilter() {
+      document.getElementById('help-search-input').value = '';
+      document.querySelectorAll('.help-card').forEach(card => card.classList.remove('hidden'));
+    }
+
+    // --- 10. MODALS & GLOBAL SEARCH ---
+    function openCertificateModal() {
+      const modal = document.getElementById('cert-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCertModal() {
+      const modal = document.getElementById('cert-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function openHotlineModal() {
+      const modal = document.getElementById('hotline-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeHotlineModal() {
+      const modal = document.getElementById('hotline-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function openSearchModal() {
+      const modal = document.getElementById('search-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => {
+        document.getElementById('global-search-input').focus();
+      }, 50);
+    }
+
+    function closeSearchModal() {
+      const modal = document.getElementById('search-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Global Search Database
+    const SEARCH_ITEMS = [
+      { title: 'SOP Langkah 05: Sambungkan Mixer Kecil ke ATEM Mini', desc: 'Colokan Jack 3.5mm TRS ke port Mic 1 ATEM Mini', targetView: 'langkah', action: () => selectStep(5) },
+      { title: 'Layar Video Hitam / "No Signal" di OBS', desc: 'Solusi 3 langkah periksa port HDMI dan deactivate/activate capture card', targetView: 'bantuan', action: () => filterHelpTag('video') },
+      { title: 'Ada Suara Dengung Keras (Ground Hum 50Hz)', desc: 'Tes cabut adaptor laptop dan aktifkan tombol GND LIFT pada DI-Box', targetView: 'bantuan', action: () => filterHelpTag('suara') },
+      { title: 'Kontrol Kamera PTZ iVMS-4200', desc: 'Preset altar utama, mimbar, koor, dan aturan hening saat konsekrasi', targetView: 'ptz' },
+      { title: 'Mode Hari-H: Checklist Cepat Siaran', desc: '15 poin verifikasi sakristi H-45 menit sebelum misa dimulai', targetView: 'hari-h' },
+      { title: 'Panduan Link YouTube Studio & OBS', desc: 'Salin stream key, atur resolusi 1080p 60fps, dan audio sync delay', targetView: 'langkah', action: () => openYouTubeTab() },
+      { title: 'Katalog Alat: Audio Mixer 16-Channel', desc: 'Pusat pengaturan mikrofon altar dan lektor', targetView: 'alat' },
+      { title: 'Port Inspector: Blackmagic ATEM Mini', desc: 'Diagram colokan belakang switcher dan panduan kabel', targetView: 'alat', action: () => openAtemPortInspector() },
+      { title: 'Simulasi Sambungkan Kabel & Kuis Kilat', desc: 'Latihan mandiri colok kabel sakristi dan raih sertifikat kesiapan', targetView: 'latihan' },
+      { title: 'Peta Alur Sinyal AV Misa Kudus', desc: 'Diagram interaktif aliran suara dan video dari altar ke YouTube', targetView: 'alur-sinyal' }
+    ];
+
+    function runGlobalSearch(query) {
+      const resContainer = document.getElementById('global-search-results');
+      const q = query.toLowerCase().trim();
+
+      if (!q) {
+        resContainer.innerHTML = '<p class="p-3 text-center text-outline text-xs">Ketik kata kunci untuk mencari seluruh modul, SOP, dan solusi darurat...</p>';
+        return;
+      }
+
+      const matches = SEARCH_ITEMS.filter(item => 
+        item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        resContainer.innerHTML = '<p class="p-3 text-center text-outline text-xs">Tidak ditemukan hasil yang cocok. Coba kata kunci lain (misal: "kabel", "obs", "dengung").</p>';
+        return;
+      }
+
+      resContainer.innerHTML = matches.map(item => `
+        <div onclick="jumpToSearch('${item.targetView}')" class="p-2.5 rounded-xl hover:bg-surface-container transition-colors cursor-pointer border border-transparent hover:border-outline-variant/30 flex items-center justify-between">
+          <div>
+            <p class="font-bold text-primary text-xs">${item.title}</p>
+            <p class="text-[11px] text-on-surface-variant">${item.desc}</p>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-surface-container text-on-surface uppercase">Buka</span>
+        </div>
+      `).join('');
+    }
+
+    function jumpToSearch(viewId) {
+      closeSearchModal();
+      switchView(viewId);
+    }
+
+    // Keyboard shortcuts: '/' or 'Ctrl+K' opens search, 'Escape' closes modals
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearchModal();
+      } else if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        openSearchModal();
+      } else if (e.key === 'Escape') {
+        closeSearchModal();
+        closeCertModal();
+        closeHotlineModal();
+        closeAtemModal();
+      }
+    });
+
+    // --- 11. TOAST NOTIFICATIONS ---
+    let toastTimer = null;
+    function showToast(message, icon = 'check_circle') {
+      const banner = document.getElementById('toast-banner');
+      const msg = document.getElementById('toast-message');
+      const icn = document.getElementById('toast-icon');
+
+      if (!banner) return;
+      msg.textContent = message;
+      icn.textContent = icon;
+
+      banner.classList.remove('translate-y-24', 'opacity-0');
+      banner.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.remove('translate-y-0', 'opacity-100');
+        banner.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

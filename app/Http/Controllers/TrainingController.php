@@ -11,6 +11,6 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        return view('pages.training');
+        return view('pages.academy', ['initialView' => 'latihan']);
     }
 }

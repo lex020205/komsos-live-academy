@@ -11,6 +11,6 @@ class TroubleshootingController extends Controller
      */
     public function index()
     {
-        return view('pages.troubleshooting');
+        return view('pages.academy', ['initialView' => 'bantuan']);
     }
 }

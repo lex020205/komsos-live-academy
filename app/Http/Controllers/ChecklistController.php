@@ -11,6 +11,6 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        return view('pages.checklist');
+        return view('pages.academy', ['initialView' => 'hari-h']);
     }
 }

@@ -11,6 +11,6 @@ class StepController extends Controller
      */
     public function index()
     {
-        return view('pages.steps');
+        return view('pages.academy', ['initialView' => 'langkah']);
     }
 }

@@ -11,6 +11,6 @@ class SignalRouteController extends Controller
      */
     public function index()
     {
-        return view('pages.signal-routes');
+        return view('pages.academy', ['initialView' => 'alur-sinyal']);
     }
 }
